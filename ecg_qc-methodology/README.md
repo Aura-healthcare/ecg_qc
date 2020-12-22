@@ -1,7 +1,7 @@
 # ECG_QC METHODOLOGY
 
 
-ECG_QC (ECG Quality Classifier) aims at creating a library to detect ECG quality through the computation of SQI (Signal Quality Indexes). To do so, we used physionet library to create a dataset to train a machine learning model. This model can then be used to predict signal quality.
+ECG_QC (ECG Quality Classifier) aims at creating a library to detect ECG quality through the computation of SQI (Signal Quality Indexes). To do so, we used physionet library to create a dataset to train a machine learning model.
 
 ## I - From Physionet To Machine Learning Model
 
@@ -107,3 +107,7 @@ The models can be exported to:
 Best performance is achieved with xgboost.
 
 [correlation matrix]
+
+# Acknowledgments
+
+Nemcova, A., Smisek, R., Opravilová, K., Vitek, M., Smital, L., & Maršánová, L. (2020). Brno University of Technology ECG Quality Database (BUT QDB) (version 1.0.0). PhysioNet. https://doi.org/10.13026/kah4-0w24.
