@@ -11,7 +11,7 @@
 
 The easiest way to install hrv-analysis is using ``pip`` :
 
-    $ pip install ecq-qc==1.0b1
+    $ pip install ecg-qc==1.0b1
 
 you can also clone the repository:
 

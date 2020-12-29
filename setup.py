@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
 
 setuptools.setup(
-    name="ecq_qc",
+    name="ecg_qc",
     version="v1.0-b1",
     author="Alexandre CHIROUZE, Alexis COMTE, Laura DUMONT",
     license="GPLv3",
