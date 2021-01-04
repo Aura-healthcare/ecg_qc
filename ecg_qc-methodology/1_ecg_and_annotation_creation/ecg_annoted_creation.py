@@ -2,6 +2,8 @@ import pandas as pd
 import wfdb
 from tqdm import tqdm
 import sys
+import re
+
 
 patient = '103001'
 target_annot = ['cons']
@@ -15,7 +17,7 @@ while i < len(sys.argv):
         patient = sys.argv[i+1]
         i += 2
     elif sys.argv[i] == '-target_annot' and i < len(sys.argv)-1:
-        target_annot = int(sys.argv[i+1])
+        target_annot = sys.argv[i+1].split(',')
         i += 2
     elif sys.argv[i] == '-sampling_frequency' and i < len(sys.argv)-1:
         sampling_frequency = int(sys.argv[i+1])
@@ -71,6 +73,7 @@ def ecg_annoted_creation(patient: str = patient,
         df_ecg[annot] = ''
 
     for target_annot_index in range(len(target_annot)):
+
         for line in tqdm(
             range(int(df_ann['{}_end_sample'.format(
                 target_annot[target_annot_index])].dropna().shape[0]))):
