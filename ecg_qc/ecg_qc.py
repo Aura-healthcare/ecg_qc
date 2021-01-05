@@ -30,8 +30,8 @@ class ecg_qc:
         pSQI_score = pSQI(ecg_signal, self.sampling_frequency)
         basSQI_score = basSQI(ecg_signal, self.sampling_frequency)
 
-        sqi_scores = [[qSQI_score, cSQI_score, sSQI_score,
-                       kSQI_score, pSQI_score, basSQI_score]]
+        sqi_scores = [[basSQI_score, cSQI_score, kSQI_score,
+                       pSQI_score, qSQI_score, sSQI_score]]
 
         return sqi_scores
 

@@ -16,6 +16,7 @@ def main():
     SQI_class = ecg_qc.ecg_qc()
     for offset in list(range(offset_start, last_sample, window_size_sample)):
         ecg_data = test_sample[offset: offset + window_size_sample, 0]
+        print(SQI_class.compute_sqi_scores(ecg_data))
         print(SQI_class.get_signal_quality(ecg_data))
 
 
