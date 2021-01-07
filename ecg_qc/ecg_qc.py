@@ -19,7 +19,7 @@ class ecg_qc:
         self.model = load(model)
         self.sampling_frequency = sampling_frequency
 
-    def compute_sqi_scores(self, ecg_signal):
+    def compute_sqi_scores(self, ecg_signal: list) -> list:
 
         qSQI_score = qSQI(ecg_signal, self.sampling_frequency)
         cSQI_score = cSQI(ecg_signal, self.sampling_frequency)
@@ -35,9 +35,9 @@ class ecg_qc:
 
         return sqi_scores
 
-    def predict_quality(self, sqi_scores):
+    def predict_quality(self, sqi_scores: list) -> int:
         X = self.data_encoder.transform(sqi_scores)
-        prediction = self.model.predict(X)
+        prediction = int(self.model.predict(X))
         return prediction
 
     def get_signal_quality(self, ecg_signal):

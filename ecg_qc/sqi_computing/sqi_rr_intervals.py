@@ -3,18 +3,18 @@ from ecgdetectors import Detectors
 import biosppy.signals.ecg as bsp_ecg
 
 
-def cSQI(ecg_signal, sampling_frequency):
+def cSQI(ecg_signal: list, sampling_frequency: int) -> float:
 
     RRI_list = bsp_ecg.hamilton_segmenter(
             signal=np.array(ecg_signal),
             sampling_rate=sampling_frequency)[0]
 
-    cSQI_score = round(np.std(RRI_list, ddof=1) / np.mean(RRI_list), 2)
+    cSQI_score = float(round(np.std(RRI_list, ddof=1) / np.mean(RRI_list), 2))
 
     return cSQI_score
 
 
-def qSQI(ecg_signal, sampling_frequency):
+def qSQI(ecg_signal: list, sampling_frequency: int) -> float:
 
     detectors = Detectors(sampling_frequency)
     qrs_frames_swt = detectors.swt_detector(ecg_signal)

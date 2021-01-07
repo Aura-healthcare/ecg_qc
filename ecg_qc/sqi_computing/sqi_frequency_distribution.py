@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def pSQI(ecg_signal, sampling_frequency):
+def pSQI(ecg_signal: list, sampling_frequency: int) -> float:
 
     n = len(ecg_signal)
     t = 1 / sampling_frequency
@@ -16,7 +16,7 @@ def pSQI(ecg_signal, sampling_frequency):
 
     pds_num = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=5 and xf[idx]<=15]
     pds_denom = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=5 and xf[idx]<=40]
-    pSQI_cr = round(sum(pds_num) / sum(pds_denom), 2) 
+    pSQI_cr = float(round(sum(pds_num) / sum(pds_denom), 2)) 
 
     return pSQI_cr
 
@@ -36,6 +36,6 @@ def basSQI(ecg_signal, sampling_frequency):
     pds_num = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=0 and xf[idx]<=1]
     pds_denom = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=0 and xf[idx]<=40]
 
-    basSQI_cr = round(1 - (sum(pds_num) / sum(pds_denom)), 2)
+    basSQI_cr = float(round(1 - (sum(pds_num) / sum(pds_denom)), 2))
 
     return basSQI_cr
