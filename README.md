@@ -8,7 +8,7 @@
 **Website** : https://www.aura.healthcare
 
 **Github** : https://github.com/Aura-healthcare
-**Version** : 1.0b1
+**Version** : 1.0b2
 
 ## Installation / Prerequisites
 
@@ -16,7 +16,7 @@
 
 The easiest way to install hrv-analysis is using ``pip`` :
 
-    $ pip install ecg-qc==1.0b1
+    $ pip install ecg-qc
 
 you can also clone the repository:
 
