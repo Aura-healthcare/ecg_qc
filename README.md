@@ -1,5 +1,10 @@
 # ECG_QC (Quality Classification)
 
+
+[![PyPI version](https://badge.fury.io/py/ecg-qc.svg)](https://badge.fury.io/py/ecg-qc)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Downloads](https://pepy.tech/badge/ecg-qc)](https://pepy.tech/project/ecg-qc)
+
 **Website** : https://www.aura.healthcare
 
 **Github** : https://github.com/Aura-healthcare
