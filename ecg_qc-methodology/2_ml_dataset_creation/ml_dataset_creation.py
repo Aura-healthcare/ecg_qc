@@ -44,7 +44,7 @@ def compute_sqi(patient: str = patient,
                 input_data_folder: str = input_data_folder,
                 output_folder: str = output_folder) -> [float]:
 
-    df_ml = pd.DataFrame(columns=['timestamp'])
+    df_ml = pd.DataFrame(columns=['timestamp_start', 'timestamp_end', 'qSQI_score', 'cSQI_score', 'sSQI_score', 'kSQI_score', 'pSQI_score', 'basSQI_score'])
 
     ecg_qc_class = ecg_qc()
     print('computing SQI')
@@ -56,9 +56,9 @@ def compute_sqi(patient: str = patient,
         start = i * window * sampling_frequency
         end = start + window * sampling_frequency
         sqi_scores = ecg_qc_class.compute_sqi_scores(
-            ecg_signal=df_ecg['ecg_signal'][start:end].values,
-            sampling_frequency=sampling_frequency)
-        df_ml = df_ml.append({'timestamp': start,
+            ecg_signal=df_ecg['ecg_signal'][start:end].values)
+        df_ml = df_ml.append({'timestamp_start': df_ecg['ecg_signal'][start:end].index[0],
+                              'timestamp_end': df_ecg['ecg_signal'][start:end].index[-1],
                               'qSQI_score': sqi_scores[0][0],
                               'cSQI_score': sqi_scores[0][1],
                               'sSQI_score': sqi_scores[0][2],
@@ -67,7 +67,8 @@ def compute_sqi(patient: str = patient,
                               'basSQI_score': sqi_scores[0][5]},
                              ignore_index=True)
 
-        df_ml['timestamp'] = df_ml['timestamp'].astype(int)
+        df_ml['timestamp_start'] = df_ml['timestamp_start'].astype(int)
+        df_ml['timestamp_end'] = df_ml['timestamp_end'].astype(int)
 
     return df_ml
 
@@ -87,8 +88,8 @@ def classification_correspondance(timestamp: int,
                                   window: int = 9):
 
     start = timestamp
-    end = start + window * sampling_frequency
-    cons_value = df_ecg['cons'][start:end].unique()
+    end = start + window * sampling_frequency - 1
+    cons_value = df_ecg.loc[start:end]['cons'].unique()
     classif = binary_class_encoding(max(cons_value))
 
     return classif
@@ -99,8 +100,9 @@ def classification_correspondance_avg(timestamp,
                                       window=9):
 
     start = timestamp
-    end = start + window * sampling_frequency
-    cons_value = df_ecg['cons'][start:end]
+    end = start + window * sampling_frequency - 1
+    cons_value = df_ecg.loc[start:end]['cons']
+
     classif_avg = np.mean([binary_class_encoding(x) for x in cons_value])
 
     return classif_avg
@@ -124,9 +126,9 @@ if __name__ == '__main__':
 
     print('Preparing ml_dataset for patient {}'.format(patient))
 
-    df_ml['classif'] = df_ml['timestamp'].apply(
+    df_ml['classif'] = df_ml['timestamp_start'].apply(
         lambda x: classification_correspondance(x))
-    df_ml['classif_avg'] = df_ml['timestamp'].apply(
+    df_ml['classif_avg'] = df_ml['timestamp_start'].apply(
         lambda x: classification_correspondance_avg(x, window=9))
 
     df_ml.to_csv('{}/df_ml_{}.csv'.format(output_folder, patient),
