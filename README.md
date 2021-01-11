@@ -6,9 +6,8 @@
 [![Downloads](https://pepy.tech/badge/ecg-qc)](https://pepy.tech/project/ecg-qc)
 
 **Website** : https://www.aura.healthcare
-
 **Github** : https://github.com/Aura-healthcare
-**Version** : 1.0b2
+**Version** : 1.0b3
 
 ## Installation / Prerequisites
 
@@ -19,9 +18,9 @@ ecg_qc requires:
 - Python (>= 3.6)
 - biosppy>=0.6.1,
 - pathtools>=0.1.2,
-- py-ecg-detectors>=1.0.2,
-- scikit-learn>=0.23.2,
-- wfdb>=3.1.1,
+- py-ecg-detectors>=1.0.2
+- scikit-learn>=0.23.2
+- wfdb>=3.1.1
 - xgboost>=1.3.1
 
 #### User installation
