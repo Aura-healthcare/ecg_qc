@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ecg_qc",
-    version="v1.0-b2",
+    version="v1.0-b3",
     author="Alexandre CHIROUZE, Alexis COMTE, Laura DUMONT",
     license="GPLv3",
     author_email="alexandre@chirouze.tech, alexis.g.comte@gmail.com, laura.dt.dumont@gmail.com",
@@ -22,15 +22,28 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     python_requires='>=3.6',
     install_requires=[
-        "biosppy==0.6.1",
-        "pathtools==0.1.2",
-        "py-ecg-detectors==1.0.2",
-        "scikit-learn==0.23.2",
-        "wfdb==3.1.1",
-        "xgboost==1.3.1"
+        "biosppy>=0.6.1",
+        "pathtools>=0.1.2",
+        "py-ecg-detectors>=1.0.2",
+        "scikit-learn>=0.23.2",
+        "wfdb>=3.1.1",
+        "xgboost>=1.3.1"
     ],
     classifiers=[
+        # Trove classifiers
+        # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+        'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+        'Intended Audience :: Science/Research',
+        'Intended Audience :: Healthcare Industry',
+        'Natural Language :: English',
         "Programming Language :: Python :: 3",
-        "Operating System :: OS Independent"
+        "Operating System :: OS Independent",
+        "Development Status :: 4 - Beta",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7"
+        "Programming Language :: Python :: 3.6"
+        'Programming Language :: Python :: Implementation :: PyPy'
     ]
 )
