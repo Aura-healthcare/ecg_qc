@@ -3,6 +3,7 @@
 
 [![PyPI version](https://badge.fury.io/py/ecg-qc.svg)](https://badge.fury.io/py/ecg-qc)
 [![Build Status](https://travis-ci.com/Aura-healthcare/ecg_qc.svg?branch=main)](https://travis-ci.com/Aura-healthcare/ecg_qc)
+[![codecov](https://codecov.io/gh/Aura-healthcare/ecg_qc/branch/main/graph/badge.svg?token=8QZ5G68SF2)](https://codecov.io/gh/Aura-healthcare/ecg_qc)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Downloads](https://pepy.tech/badge/ecg-qc)](https://pepy.tech/project/ecg-qc)
 
