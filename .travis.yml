@@ -8,7 +8,7 @@ python:
 
 install:
   - pip install -r requirements.txt
-  - pip install codecov
+  - pip install codecov pytest-cov
 
 script:
   - pytest --cov=./ecg_qc/
