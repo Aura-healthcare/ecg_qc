@@ -11,7 +11,7 @@ def pSQI(ecg_signal: list, sampling_frequency: int) -> float:
 
     fft_results = []
 
-    for offset in range(len(xf)):
+    for offset, element in enumerate(xf):
         fft_results.append([xf[offset], np.abs(yf[offset])])
 
     pds_num = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=5 and xf[idx]<=15]
@@ -30,7 +30,7 @@ def basSQI(ecg_signal, sampling_frequency):
 
     fft_results = []
 
-    for offset in range(len(xf)):
+    for offset, element in enumerate(xf):
         fft_results.append([xf[offset], np.abs(yf[offset])])
 
     pds_num = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=0 and xf[idx]<=1]
