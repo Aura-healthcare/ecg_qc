@@ -79,8 +79,7 @@ def binary_class_encoding(numeric_label):
 
     if numeric_label >= 2:
         return 0
-    else:
-        return 1
+    return 1
 
 
 def classification_correspondance(timestamp: int,
