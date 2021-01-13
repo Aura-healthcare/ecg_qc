@@ -24,7 +24,7 @@ ecg_qc requires:
 
 - Python (>= 3.6)
 - biosppy>=0.6.1,
-- pathtools>=0.1.2,
+- pathtools>=0.1.2
 - py-ecg-detectors>=1.0.2
 - scikit-learn>=0.23.2
 - wfdb>=3.1.1
