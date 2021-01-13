@@ -15,9 +15,6 @@ fs = 1000
 sample_sqi_0 = [[0.57, 0.6, -0.35, 6.17, 0.5, 0.83]]
 sample_sqi_1 = [[0.85, 0.59, 2.97, 10.79, 0.51, 0.94]]
 
-# sample_sqi_0 = [[0.83, 0.6, 6.17, 0.5, 0.57, -0.35]]
-# sample_sqi_1 = [[0.94, 0.59, 10.79, 0.51, 0.85, 2.97]]
-
 ecg_signal = pd.read_csv('tests/tests_datasets/ecg_record_sample.csv')
 ecg_signal = ecg_signal.iloc[:time_window * fs]['ecg_record'].values
 ecg_qc_test = ecg_qc()
@@ -69,12 +66,12 @@ def test_sqi_order(ecg_signal=ecg_signal):
 
     sqi_scores = ecg_qc_test.compute_sqi_scores(ecg_signal)
 
-    qSQI_score = qSQI(ecg_signal, fs)
-    cSQI_score = cSQI(ecg_signal, fs)
-    sSQI_score = sSQI(ecg_signal)
-    kSQI_score = kSQI(ecg_signal)
-    pSQI_score = pSQI(ecg_signal, fs)
-    basSQI_score = basSQI(ecg_signal, fs)
+    q_sqi_score = qSQI(ecg_signal, fs)
+    c_sqi_score = cSQI(ecg_signal, fs)
+    s_sqi_score = sSQI(ecg_signal)
+    k_sqi_score = kSQI(ecg_signal)
+    p_sqi_score = pSQI(ecg_signal, fs)
+    bas_sqi_score = basSQI(ecg_signal, fs)
 
-    assert sqi_scores == [[qSQI_score, cSQI_score, sSQI_score,
-                           kSQI_score, pSQI_score, basSQI_score]]
+    assert sqi_scores == [[q_sqi_score, c_sqi_score, s_sqi_score,
+                           k_sqi_score, p_sqi_score, bas_sqi_score]]

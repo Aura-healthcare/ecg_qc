@@ -21,17 +21,17 @@ class ecg_qc:
 
     def compute_sqi_scores(self, ecg_signal: list) -> list:
 
-        qSQI_score = qSQI(ecg_signal, self.sampling_frequency)
-        cSQI_score = cSQI(ecg_signal, self.sampling_frequency)
+        q_sqi_score = qSQI(ecg_signal, self.sampling_frequency)
+        c_sqi_score = cSQI(ecg_signal, self.sampling_frequency)
 
-        sSQI_score = sSQI(ecg_signal)
-        kSQI_score = kSQI(ecg_signal)
+        s_sqi_score = sSQI(ecg_signal)
+        k_sqi_score = kSQI(ecg_signal)
 
-        pSQI_score = pSQI(ecg_signal, self.sampling_frequency)
-        basSQI_score = basSQI(ecg_signal, self.sampling_frequency)
+        p_sqi_score = pSQI(ecg_signal, self.sampling_frequency)
+        bas_sqi_score = basSQI(ecg_signal, self.sampling_frequency)
 
-        sqi_scores = [[qSQI_score, cSQI_score, sSQI_score,
-                       kSQI_score, pSQI_score, basSQI_score]]
+        sqi_scores = [[q_sqi_score, c_sqi_score, s_sqi_score,
+                       k_sqi_score, p_sqi_score, bas_sqi_score]]
 
         return sqi_scores
 
