@@ -31,14 +31,14 @@ def test_init():
     assert isinstance(ecg_qc_test.model,
                       xgboost.sklearn.XGBClassifier)
 
-    assert type(ecg_qc_test.sampling_frequency) == int
+    assert isinstance(ecg_qc_test.sampling_frequency, int)
 
 
 def test_compute_sqi_scores(ecg_signal=ecg_signal):
 
     sqi_scores = ecg_qc_test.compute_sqi_scores(ecg_signal)
 
-    assert type(sqi_scores) == list
+    assert isinstance(sqi_scores, list)
     assert np.array(sqi_scores).shape == (1, 6)
 
 
@@ -46,13 +46,13 @@ def test_predict_quality(sample_sqi=sample_sqi_0):
 
     pred_0 = ecg_qc_test.predict_quality(sample_sqi)
 
-    assert type(pred_0) == int
+    assert isinstance(pred_0, int)
 
 
 def test_get_signal_quality(ecg_signal=ecg_signal):
 
     quality_predicted = ecg_qc_test.get_signal_quality(ecg_signal)
-    assert type(quality_predicted) == int
+    assert isinstance(quality_predicted, int)
 
 
 def test_validate_prediction(sample_sqi_0=sample_sqi_0,
