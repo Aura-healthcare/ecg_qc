@@ -13,11 +13,11 @@ def test_pSQI(ecg_signal=ecg_signal, fs=fs):
 
     pSQI_score = pSQI(ecg_signal, fs)
 
-    assert type(pSQI_score) == float
+    assert isinstance(pSQI_score, float)
 
 
 def test_basSQI(ecg_signal=ecg_signal, fs=fs):
 
     basSQI_score = basSQI(ecg_signal, fs)
 
-    assert type(basSQI_score) == float
+    assert isinstance(basSQI_score, float)

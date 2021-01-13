@@ -13,11 +13,11 @@ def test_qSQI(ecg_signal=ecg_signal, fs=fs):
 
     qSQI_score = qSQI(ecg_signal, fs)
 
-    assert type(qSQI_score) == float
+    assert isinstance(qSQI_score, float)
 
 
 def test_cSQI(ecg_signal=ecg_signal, fs=fs):
 
     cSQI_score = cSQI(ecg_signal, fs)
 
-    assert type(cSQI_score) == float
+    assert isinstance(cSQI_score, float)
