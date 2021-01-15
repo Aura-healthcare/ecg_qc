@@ -1,5 +1,5 @@
 import pandas as pd
-from ecg_qc.sqi_computing.sqi_power_spectrum import sSQI, kSQI
+from ecg_qc.sqi_computing.sqi_power_spectrum import ssqi, ksqi
 
 time_window = 9
 fs = 1000
@@ -9,15 +9,15 @@ ecg_signal = ecg_signal.iloc[:time_window * fs]['ecg_record'].values
 
 
 # Additional: several recordings?
-def test_sSQI(ecg_signal=ecg_signal):
+def test_ssqi(ecg_signal=ecg_signal):
 
-    s_sqi_score = sSQI(ecg_signal)
+    s_sqi_score = ssqi(ecg_signal)
 
     assert isinstance(s_sqi_score, float)
 
 
-def test_kSQI(ecg_signal=ecg_signal):
+def test_ksqi(ecg_signal=ecg_signal):
 
-    k_sqi_score = kSQI(ecg_signal)
+    k_sqi_score = ksqi(ecg_signal)
 
     assert isinstance(k_sqi_score, float)

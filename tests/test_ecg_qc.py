@@ -4,9 +4,9 @@ import pandas as pd
 import numpy as np
 from ecg_qc.ecg_qc import ecg_qc
 
-from ecg_qc.sqi_computing.sqi_rr_intervals import cSQI, qSQI
-from ecg_qc.sqi_computing.sqi_power_spectrum import sSQI, kSQI
-from ecg_qc.sqi_computing.sqi_frequency_distribution import basSQI, pSQI
+from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
+from ecg_qc.sqi_computing.sqi_power_spectrum import ssqi, ksqi
+from ecg_qc.sqi_computing.sqi_frequency_distribution import bassqi, psqi
 
 
 time_window = 9
@@ -66,12 +66,12 @@ def test_sqi_order(ecg_signal=ecg_signal):
 
     sqi_scores = ecg_qc_test.compute_sqi_scores(ecg_signal)
 
-    q_sqi_score = qSQI(ecg_signal, fs)
-    c_sqi_score = cSQI(ecg_signal, fs)
-    s_sqi_score = sSQI(ecg_signal)
-    k_sqi_score = kSQI(ecg_signal)
-    p_sqi_score = pSQI(ecg_signal, fs)
-    bas_sqi_score = basSQI(ecg_signal, fs)
+    q_sqi_score = qsqi(ecg_signal, fs)
+    c_sqi_score = csqi(ecg_signal, fs)
+    s_sqi_score = ssqi(ecg_signal)
+    k_sqi_score = ksqi(ecg_signal)
+    p_sqi_score = psqi(ecg_signal, fs)
+    bas_sqi_score = bassqi(ecg_signal, fs)
 
     assert sqi_scores == [[q_sqi_score, c_sqi_score, s_sqi_score,
                            k_sqi_score, p_sqi_score, bas_sqi_score]]
