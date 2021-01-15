@@ -32,14 +32,11 @@ def qsqi(ecg_signal: list, sampling_frequency: int) -> float:
 def compute_qrs_frames_correlation(qrs_frames_1,
                                    qrs_frames_2,
                                    sampling_frequency,
-                                   matching_qrs_frames_tolerance=50,
-                                   max_single_beat_duration=1800):
+                                   matching_qrs_frames_tolerance=50):
 
     single_frame_duration = 1/sampling_frequency
 
     frame_tolerance = matching_qrs_frames_tolerance * (
-        0.001 / single_frame_duration)
-    max_single_beat_frame_duration = max_single_beat_duration * (
         0.001 / single_frame_duration)
 
     # Catch complete failed QRS detection
@@ -49,8 +46,6 @@ def compute_qrs_frames_correlation(qrs_frames_1,
     i = 0
     j = 0
     matching_frames = 0
-
-    previous_min_qrs_frame = min(qrs_frames_1[0], qrs_frames_2[0])
 
     while i < len(qrs_frames_1) and j < len(qrs_frames_2):
         min_qrs_frame = min(qrs_frames_1[i], qrs_frames_2[j])
@@ -68,7 +63,6 @@ def compute_qrs_frames_correlation(qrs_frames_1,
                 i += 1
             else:
                 j += 1
-        previous_min_qrs_frame = min_qrs_frame
 
     correlation_coefs = 2 * matching_frames / (len(qrs_frames_1) +
                                                len(qrs_frames_2))
