@@ -14,7 +14,7 @@
 
 **Github** : https://github.com/Aura-healthcare
 
-**Version** : 1.0b3
+**Version** : 1.0b4
 
 ## Installation / Prerequisites
 
@@ -23,7 +23,7 @@
 ecg_qc requires:
 
 - Python (>= 3.6)
-- biosppy>=0.6.1,
+- biosppy>=0.6.1
 - pathtools>=0.1.2
 - py-ecg-detectors>=1.0.2
 - scikit-learn>=0.23.2

@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ecg_qc",
-    version="v1.0-b3",
+    version="v1.0-b4",
     author="Alexandre CHIROUZE, Alexis COMTE, Laura DUMONT",
     license="GPLv3",
     author_email="alexandre@chirouze.tech, alexis.g.comte@gmail.com, laura.dt.dumont@gmail.com",
