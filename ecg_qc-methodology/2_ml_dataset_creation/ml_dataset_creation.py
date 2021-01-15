@@ -39,12 +39,15 @@ while i < len(sys.argv):
 # Function declaration
 
 def compute_sqi(patient: str = patient,
-                window: str = window,
-                sampling_frequency: str = sampling_frequency,
+                window: str = int,
+                sampling_frequency: int = sampling_frequency,
                 input_data_folder: str = input_data_folder,
                 output_folder: str = output_folder) -> [float]:
 
-    df_ml = pd.DataFrame(columns=['timestamp_start', 'timestamp_end', 'qSQI_score', 'cSQI_score', 'sSQI_score', 'kSQI_score', 'pSQI_score', 'basSQI_score'])
+    df_ml = pd.DataFrame(columns=['timestamp_start', 'timestamp_end',
+                                  'qSQI_score', 'cSQI_score',
+                                  'sSQI_score', 'kSQI_score',
+                                  'pSQI_score', 'basSQI_score'])
 
     ecg_qc_class = ecg_qc()
     print('computing SQI')

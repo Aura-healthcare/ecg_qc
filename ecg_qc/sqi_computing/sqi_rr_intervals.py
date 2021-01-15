@@ -3,7 +3,7 @@ from ecgdetectors import Detectors
 import biosppy.signals.ecg as bsp_ecg
 
 
-def cSQI(ecg_signal: list, sampling_frequency: int) -> float:
+def csqi(ecg_signal: list, sampling_frequency: int) -> float:
 
     rri_list = bsp_ecg.hamilton_segmenter(
             signal=np.array(ecg_signal),
@@ -14,7 +14,7 @@ def cSQI(ecg_signal: list, sampling_frequency: int) -> float:
     return c_sqi_score
 
 
-def qSQI(ecg_signal: list, sampling_frequency: int) -> float:
+def qsqi(ecg_signal: list, sampling_frequency: int) -> float:
 
     detectors = Detectors(sampling_frequency)
     qrs_frames_swt = detectors.swt_detector(ecg_signal)
@@ -23,8 +23,8 @@ def qSQI(ecg_signal: list, sampling_frequency: int) -> float:
             sampling_rate=sampling_frequency)[0]
 
     q_sqi_score = compute_qrs_frames_correlation(qrs_frames_hamilton,
-                                                qrs_frames_swt,
-                                                sampling_frequency)
+                                                 qrs_frames_swt,
+                                                 sampling_frequency)
 
     return q_sqi_score
 
@@ -32,14 +32,11 @@ def qSQI(ecg_signal: list, sampling_frequency: int) -> float:
 def compute_qrs_frames_correlation(qrs_frames_1,
                                    qrs_frames_2,
                                    sampling_frequency,
-                                   MATCHING_QRS_FRAMES_TOLERANCE=50,
-                                   MAX_SINGLE_BEAT_DURATION=1800):
+                                   matching_qrs_frames_tolerance=50):
 
     single_frame_duration = 1/sampling_frequency
 
-    frame_tolerance = MATCHING_QRS_FRAMES_TOLERANCE * (
-        0.001 / single_frame_duration)
-    max_single_beat_frame_duration = MAX_SINGLE_BEAT_DURATION * (
+    frame_tolerance = matching_qrs_frames_tolerance * (
         0.001 / single_frame_duration)
 
     # Catch complete failed QRS detection
@@ -50,16 +47,9 @@ def compute_qrs_frames_correlation(qrs_frames_1,
     j = 0
     matching_frames = 0
 
-    previous_min_qrs_frame = min(qrs_frames_1[0], qrs_frames_2[0])
-    missing_beats_frames_count = 0
-
     while i < len(qrs_frames_1) and j < len(qrs_frames_2):
         min_qrs_frame = min(qrs_frames_1[i], qrs_frames_2[j])
         # Get missing detected beats intervals
-        if (min_qrs_frame - previous_min_qrs_frame) > (
-                max_single_beat_frame_duration):
-            missing_beats_frames_count += (min_qrs_frame -
-                                           previous_min_qrs_frame)
 
         # Matching frames
 
@@ -73,7 +63,6 @@ def compute_qrs_frames_correlation(qrs_frames_1,
                 i += 1
             else:
                 j += 1
-        previous_min_qrs_frame = min_qrs_frame
 
     correlation_coefs = 2 * matching_frames / (len(qrs_frames_1) +
                                                len(qrs_frames_2))

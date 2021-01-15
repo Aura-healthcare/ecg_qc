@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def pSQI(ecg_signal: list, sampling_frequency: int) -> float:
+def psqi(ecg_signal: list, sampling_frequency: int) -> float:
 
     n = len(ecg_signal)
     t = 1 / sampling_frequency
@@ -21,7 +21,7 @@ def pSQI(ecg_signal: list, sampling_frequency: int) -> float:
     return p_sqi_score
 
 
-def basSQI(ecg_signal, sampling_frequency):
+def bassqi(ecg_signal, sampling_frequency):
     n = len(ecg_signal)
     t = 1 / sampling_frequency
 

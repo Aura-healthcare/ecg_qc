@@ -1,7 +1,7 @@
 from joblib import load
-from ecg_qc.sqi_computing.sqi_rr_intervals import cSQI, qSQI
-from ecg_qc.sqi_computing.sqi_power_spectrum import sSQI, kSQI
-from ecg_qc.sqi_computing.sqi_frequency_distribution import basSQI, pSQI
+from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
+from ecg_qc.sqi_computing.sqi_power_spectrum import ssqi, ksqi
+from ecg_qc.sqi_computing.sqi_frequency_distribution import bassqi, psqi
 import os
 
 lib_path = os.path.dirname(__file__)
@@ -21,14 +21,14 @@ class ecg_qc:
 
     def compute_sqi_scores(self, ecg_signal: list) -> list:
 
-        q_sqi_score = qSQI(ecg_signal, self.sampling_frequency)
-        c_sqi_score = cSQI(ecg_signal, self.sampling_frequency)
+        q_sqi_score = qsqi(ecg_signal, self.sampling_frequency)
+        c_sqi_score = csqi(ecg_signal, self.sampling_frequency)
 
-        s_sqi_score = sSQI(ecg_signal)
-        k_sqi_score = kSQI(ecg_signal)
+        s_sqi_score = ssqi(ecg_signal)
+        k_sqi_score = ksqi(ecg_signal)
 
-        p_sqi_score = pSQI(ecg_signal, self.sampling_frequency)
-        bas_sqi_score = basSQI(ecg_signal, self.sampling_frequency)
+        p_sqi_score = psqi(ecg_signal, self.sampling_frequency)
+        bas_sqi_score = bassqi(ecg_signal, self.sampling_frequency)
 
         sqi_scores = [[q_sqi_score, c_sqi_score, s_sqi_score,
                        k_sqi_score, p_sqi_score, bas_sqi_score]]
