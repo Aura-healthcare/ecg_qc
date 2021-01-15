@@ -3,16 +3,16 @@ import numpy as np
 
 def sSQI(ecg_signal: list) -> float:
     num = np.mean((ecg_signal - np.mean(ecg_signal))**3)
-    sSQI = num / (np.std(ecg_signal, ddof=1)**3)
-    sSQI_cr = float(round(sSQI, 2))
+    s_sqi = num / (np.std(ecg_signal, ddof=1)**3)
+    s_sqi_score = float(round(s_sqi, 2))
 
-    return sSQI_cr
+    return s_sqi_score
 
 
 def kSQI(ecg_signal: list) -> float:
     num = np.mean((ecg_signal - np.mean(ecg_signal))**4)
-    kSQI = num / (np.std(ecg_signal, ddof=1)**4)
-    kSQI_fischer = kSQI - 3.0
-    kSQI_cr = float(round(kSQI_fischer, 2))
+    k_sqi = num / (np.std(ecg_signal, ddof=1)**4)
+    k_sqi_fischer = k_sqi - 3.0
+    k_sqi_score = float(round(k_sqi_fischer, 2))
 
-    return kSQI_cr
+    return k_sqi_score

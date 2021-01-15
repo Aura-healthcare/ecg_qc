@@ -11,13 +11,13 @@ ecg_signal = ecg_signal.iloc[:time_window * fs]['ecg_record'].values
 # Additional: several recordings?
 def test_pSQI(ecg_signal=ecg_signal, fs=fs):
 
-    pSQI_score = pSQI(ecg_signal, fs)
+    p_sqi_score = pSQI(ecg_signal, fs)
 
-    assert isinstance(pSQI_score, float)
+    assert isinstance(p_sqi_score, float)
 
 
 def test_basSQI(ecg_signal=ecg_signal, fs=fs):
 
-    basSQI_score = basSQI(ecg_signal, fs)
+    bas_sqi_score = basSQI(ecg_signal, fs)
 
-    assert isinstance(basSQI_score, float)
+    assert isinstance(bas_sqi_score, float)

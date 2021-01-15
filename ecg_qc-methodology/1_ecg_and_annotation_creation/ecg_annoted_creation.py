@@ -72,7 +72,7 @@ def ecg_annoted_creation(patient: str = patient,
     for annot in target_annot:
         df_ecg[annot] = ''
 
-    for target_annot_index in range(len(target_annot)):
+    for target_annot_index, target_annot_element in enumerate(target_annot):
 
         for line in tqdm(
             range(int(df_ann['{}_end_sample'.format(

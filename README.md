@@ -8,12 +8,13 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Downloads](https://pepy.tech/badge/ecg-qc)](https://pepy.tech/project/ecg-qc)
 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=Aura-healthcare_ecg_qc)
 
 **Website** : https://www.aura.healthcare
 
 **Github** : https://github.com/Aura-healthcare
 
-**Version** : 1.0b3
+**Version** : 1.0b4
 
 ## Installation / Prerequisites
 
@@ -22,8 +23,8 @@
 ecg_qc requires:
 
 - Python (>= 3.6)
-- biosppy>=0.6.1,
-- pathtools>=0.1.2,
+- biosppy>=0.6.1
+- pathtools>=0.1.2
 - py-ecg-detectors>=1.0.2
 - scikit-learn>=0.23.2
 - wfdb>=3.1.1

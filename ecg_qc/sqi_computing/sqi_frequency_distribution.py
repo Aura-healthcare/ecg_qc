@@ -11,14 +11,14 @@ def pSQI(ecg_signal: list, sampling_frequency: int) -> float:
 
     fft_results = []
 
-    for offset in range(len(xf)):
+    for offset, element in enumerate(xf):
         fft_results.append([xf[offset], np.abs(yf[offset])])
 
     pds_num = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=5 and xf[idx]<=15]
     pds_denom = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=5 and xf[idx]<=40]
-    pSQI_cr = float(round(sum(pds_num) / sum(pds_denom), 2)) 
+    p_sqi_score = float(round(sum(pds_num) / sum(pds_denom), 2)) 
 
-    return pSQI_cr
+    return p_sqi_score
 
 
 def basSQI(ecg_signal, sampling_frequency):
@@ -30,12 +30,12 @@ def basSQI(ecg_signal, sampling_frequency):
 
     fft_results = []
 
-    for offset in range(len(xf)):
+    for offset, element in enumerate(xf):
         fft_results.append([xf[offset], np.abs(yf[offset])])
 
     pds_num = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=0 and xf[idx]<=1]
     pds_denom = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=0 and xf[idx]<=40]
 
-    basSQI_cr = float(round(1 - (sum(pds_num) / sum(pds_denom)), 2))
+    bas_sqi_score = float(round(1 - (sum(pds_num) / sum(pds_denom)), 2))
 
-    return basSQI_cr
+    return bas_sqi_score
