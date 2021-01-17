@@ -91,20 +91,17 @@ Then, we generate two metrics:
 
 ### 3 - Merge All Patients Datasets
 
+First, all patients are merged in a same dataset and a threshold of quality is applied: if classif_avg >= 95%, classif_threshold = 1, else 0
 
-The notebook creates the final machine learning dataset:
-- All patients are merged in a same dataset
-- A threshold of quality is applied: if classif_avg >= 95%, classif_threshold = 1, else 0
-- The class by patient is equalized to have balanced classes
-
-Then, the final dataset is exported. You can find an exemple with patients [103001, 111001, 113001, 124001] at:
-https://drive.google.com/file/d/1ZzspnXa-jFStvEx7hAzFj3rkSJhnwlt4/view?usp=sharing
+Then, the notebook creates the two datasets machine learning dataset:
+- The validation dataset takes a subset of consolidated dataset. No balancing is done.
+- The machine learning dataset, used to train future model. The class by patient is equalized to have balanced classes
 
 
 ### 4 - Machine Learning Training
 
 
-From the dataset, we make a pipeline of machine learning. The highlights of the notebook:
+From the dataset, we make a pipeline of machine learning with machine learning dataset. The highlights of the notebook:
 - Preprocessing: a train/test split of 80% is selected
 - 3 algoriths are tested with Grid Search and Cross Validation = 5:
     - Logistic Regression
@@ -117,8 +114,10 @@ The models can be exported to:
 - rfc : data/models/rfc.joblib
 - xgb : data/models/xgb.joblib
 
+The validation dataset allow use to have feedback on "real data".
 
-## II - Machine Learning Results
+
+## II - Machine Learning Results (to be updated)
 
 
 ### A - Random Forest Classifier Performance
