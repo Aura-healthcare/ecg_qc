@@ -3,6 +3,7 @@ import xgboost
 import pandas as pd
 import numpy as np
 from ecg_qc.ecg_qc import ecg_qc
+from tensorflow import keras
 
 from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
 from ecg_qc.sqi_computing.sqi_power_spectrum import ssqi, ksqi
@@ -75,3 +76,15 @@ def test_sqi_order(ecg_signal=ecg_signal):
 
     assert sqi_scores == [[q_sqi_score, c_sqi_score, s_sqi_score,
                            k_sqi_score, p_sqi_score, bas_sqi_score]]
+
+
+def test_cnn_model():
+
+    ecg_qc_cnn = ecg_qc(model_type='cnn')
+
+    assert isinstance(ecg_qc_cnn.model, keras.Model)
+
+    x = ecg_qc_cnn.preprocessing(ecg_signal)
+    assert x.shape == (1, 249, 249, 3)
+    assert ecg_qc_cnn.model.predict_classes(x) == 2
+    assert ecg_qc_cnn.get_signal_quality(ecg_signal) == 2
