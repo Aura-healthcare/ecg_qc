@@ -13,7 +13,8 @@ time_window = 9
 fs = 1000
 
 sample_sqi_0 = [[0.57, 0.6, -0.35, 6.17, 0.5, 0.83]]
-sample_sqi_1 = [[0.85, 0.59, 2.97, 10.79, 0.51, 0.94]]
+# sample_sqi_1 = [[0.85, 0.39, 2.97, 10.79, 0.51, 0.94]]
+sample_sqi_1 = [[0.67, 0.54, 5.15, 35.58, 0.48, 0.93]]
 
 ecg_signal = pd.read_csv('tests/tests_datasets/ecg_record_sample.csv')
 ecg_signal = ecg_signal.iloc[:time_window * fs]['ecg_record'].values
