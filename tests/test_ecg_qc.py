@@ -5,9 +5,8 @@ import numpy as np
 from ecg_qc.ecg_qc import ecg_qc
 
 from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
-from ecg_qc.sqi_computing.sqi_power_spectrum import ssqi, ksqi
-from ecg_qc.sqi_computing.sqi_frequency_distribution import bassqi, psqi
-
+from ecg_qc.sqi_computing.sqi_frequency_distribution import ssqi, ksqi
+from ecg_qc.sqi_computing.sqi_power_spectrum import bassqi, psqi
 
 time_window = 9
 fs = 1000

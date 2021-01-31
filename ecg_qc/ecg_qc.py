@@ -1,7 +1,8 @@
 from joblib import load
 from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
-from ecg_qc.sqi_computing.sqi_power_spectrum import ssqi, ksqi
-from ecg_qc.sqi_computing.sqi_frequency_distribution import bassqi, psqi
+from ecg_qc.sqi_computing.sqi_frequency_distribution import ssqi, ksqi
+from ecg_qc.sqi_computing.sqi_power_spectrum import bassqi, psqi
+
 import os
 
 lib_path = os.path.dirname(__file__)
