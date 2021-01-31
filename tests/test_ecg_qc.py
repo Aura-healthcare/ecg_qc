@@ -51,6 +51,14 @@ def test_get_signal_quality(ecg_signal=ecg_signal):
     assert isinstance(quality_predicted, int)
 
 
+def test_get_signal_quality_normalized(ecg_signal=ecg_signal,
+                                       normalized=True):
+
+    quality_predicted = ecg_qc_test.get_signal_quality(ecg_signal=ecg_signal,
+                                                       normalized=normalized)
+    assert isinstance(quality_predicted, int)
+
+
 def test_validate_prediction(sample_sqi_0=sample_sqi_0,
                              sample_sqi_1=sample_sqi_1):
 

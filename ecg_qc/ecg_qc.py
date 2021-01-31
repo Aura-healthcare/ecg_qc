@@ -2,7 +2,7 @@ from joblib import load
 from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
 from ecg_qc.sqi_computing.sqi_frequency_distribution import ssqi, ksqi
 from ecg_qc.sqi_computing.sqi_power_spectrum import bassqi, psqi
-
+from sklearn.preprocessing import StandardScaler
 import os
 
 lib_path = os.path.dirname(__file__)
@@ -20,7 +20,13 @@ class ecg_qc:
         self.model = load(model)
         self.sampling_frequency = sampling_frequency
 
-    def compute_sqi_scores(self, ecg_signal: list) -> list:
+    def compute_sqi_scores(self,
+                           ecg_signal: list,
+                           normalized: bool = False) -> list:
+
+        if normalized:
+            StandardScaler().fit_transform(
+                ecg_signal.reshape(-1, 1)).reshape(1, -1)[0]
 
         q_sqi_score = qsqi(ecg_signal, self.sampling_frequency)
         c_sqi_score = csqi(ecg_signal, self.sampling_frequency)
@@ -41,9 +47,12 @@ class ecg_qc:
         prediction = int(self.model.predict(X))
         return prediction
 
-    def get_signal_quality(self, ecg_signal):
+    def get_signal_quality(self,
+                           ecg_signal: list,
+                           normalized: bool = False):
 
-        sqi_scores = self.compute_sqi_scores(ecg_signal)
+        sqi_scores = self.compute_sqi_scores(ecg_signal=ecg_signal,
+                                             normalized=normalized)
         quality_predicted = self.predict_quality(sqi_scores)
 
         return quality_predicted
