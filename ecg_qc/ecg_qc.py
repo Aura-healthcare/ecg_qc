@@ -14,17 +14,18 @@ class ecg_qc:
                  data_encoder='{}/ml/data_encoder/data_encoder.joblib'.format(
                      lib_path),
                  model='{}/ml/models/xgb.joblib'.format(lib_path),
-                 sampling_frequency=1000):
+                 sampling_frequency: int = 1000,
+                 normalized: bool = False):
 
         self.data_encoder = load(data_encoder)
         self.model = load(model)
         self.sampling_frequency = sampling_frequency
+        self.normalized = normalized
 
     def compute_sqi_scores(self,
-                           ecg_signal: list,
-                           normalized: bool = False) -> list:
+                           ecg_signal: list) -> list:
 
-        if normalized:
+        if self.normalized:
             StandardScaler().fit_transform(
                 ecg_signal.reshape(-1, 1)).reshape(1, -1)[0]
 
@@ -48,11 +49,9 @@ class ecg_qc:
         return prediction
 
     def get_signal_quality(self,
-                           ecg_signal: list,
-                           normalized: bool = False):
+                           ecg_signal: list):
 
-        sqi_scores = self.compute_sqi_scores(ecg_signal=ecg_signal,
-                                             normalized=normalized)
+        sqi_scores = self.compute_sqi_scores(ecg_signal)
         quality_predicted = self.predict_quality(sqi_scores)
 
         return quality_predicted
