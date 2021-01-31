@@ -13,6 +13,7 @@ window = 9
 sampling_frequency = 1000
 input_data_folder = 'datasets/1_ecg_and_annotation_creation'
 output_folder = 'datasets/2_dataset_creation'
+normalized = False
 
 i = 1
 while i < len(sys.argv):
@@ -31,6 +32,11 @@ while i < len(sys.argv):
     elif sys.argv[i] == '-output_folder' and i < len(sys.argv)-1:
         output_folder = sys.argv[i+1]
         i += 2
+    elif sys.argv[i] == '-normalized' and i < len(sys.argv)-1:
+        normalized = sys.argv[i+1]
+        i += 2
+        if normalized == 'True':
+            normalized = True
     else:
         print('Unknown argument' + str(sys.argv[i]))
         break
@@ -49,7 +55,7 @@ def compute_sqi(patient: str = patient,
                                   'sSQI_score', 'kSQI_score',
                                   'pSQI_score', 'basSQI_score'])
 
-    ecg_qc_class = ecg_qc()
+    ecg_qc_class = ecg_qc(normalized=normalized)
     print('computing SQI')
 
     for i in tqdm(range(int(round(
@@ -133,7 +139,11 @@ if __name__ == '__main__':
     df_ml['classif_avg'] = df_ml['timestamp_start'].apply(
         lambda x: classification_correspondance_avg(x, window=9))
 
-    df_ml.to_csv('{}/df_ml_{}.csv'.format(output_folder, patient),
-                 index=False)
+    if normalized:
+        df_ml.to_csv('{}/df_ml_{}_norm.csv'.format(output_folder, patient),
+                     index=False)
+    else:
+        df_ml.to_csv('{}/df_ml_{}.csv'.format(output_folder, patient),
+                     index=False)
 
     print('done!')
