@@ -1,7 +1,7 @@
 API documentation
 ==================
 
-ecg_qc is a pyton library that classifies ecg signal to 0 = bad quality and 1 = good quality.
+ecg_qc is a pyton library that classifies ECG signal to 0 = bad quality and 1 = good quality.
 
 0 = bad quality corresponds to an ECG signal containing baseline shift, hight frequency noise which disturbs the QRS analysis.
 
@@ -112,3 +112,21 @@ Let's now take an ECG with important baseline shift. The computed bassqi = 0.97.
     :undoc-members:
     :show-inheritance:
 
+
+R-R interval sqi
+------------------
+
+An ECG signal is a periodic signal composed of P, Q, R and T wave.
+
+.. image:: images/pqrst_wave.jpg
+    :width: 500
+
+`https://www.aclsmedicaltraining.com/basics-of-ecg/ <https://www.aclsmedicaltraining.com/basics-of-ecg/>`_
+
+R wave has the maximum amplitude and most obvious characteristic so we often characterize the ECG signal by R wave detection. 
+
+.. automodule:: ecg_qc.sqi_computing.sqi_rr_intervals
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    

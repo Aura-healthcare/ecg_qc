@@ -85,6 +85,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-ecg_qc.ecg_qc">ecg_qc main class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#frequency-distribution-sqi">Frequency distribution sqi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#power-spectrum-sqi">Power spectrum sqi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#r-r-interval-sqi">R-R interval sqi</a></li>
 </ul>
 </li>
 </ul>
@@ -153,7 +154,7 @@
             
   <div class="section" id="api-documentation">
 <h1>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
-<p>ecg_qc is a pyton library that classifies ecg signal to 0 = bad quality and 1 = good quality.</p>
+<p>ecg_qc is a pyton library that classifies ECG signal to 0 = bad quality and 1 = good quality.</p>
 <p>0 = bad quality corresponds to an ECG signal containing baseline shift, hight frequency noise which disturbs the QRS analysis.</p>
 <p>1 = good quality corresponds to a clean ECG signal where the QRS can be perfectly detected.</p>
 <div class="section" id="module-ecg_qc.ecg_qc">
@@ -280,8 +281,8 @@ frequencies ranging from 0Hz to 40Hz.</p>
 <span class="target" id="module-ecg_qc.sqi_computing.sqi_power_spectrum"></span><dl class="py function">
 <dt id="ecg_qc.sqi_computing.sqi_power_spectrum.bassqi">
 <code class="sig-prename descclassname">ecg_qc.sqi_computing.sqi_power_spectrum.</code><code class="sig-name descname">bassqi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ecg_signal</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">sampling_frequency</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/ecg_qc/sqi_computing/sqi_power_spectrum.html#bassqi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ecg_qc.sqi_computing.sqi_power_spectrum.bassqi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the relative Power in the Baseline.
-It corresponds to the ratio of the energy of the QRS wave and the energy of the ECG signal.
+<dd><p>Computes the relative power in the Baseline.</p>
+<p>It corresponds to the ratio of the energy of the QRS wave and the energy of the ECG signal.
 The energy of the baseline is computed on frequencies ranging from 0Hz to 1Hz, the energy of the ECG signal is computed on
 frequencies ranging from 0Hz to 40Hz.</p>
 <p>If there is no baseline drift interference, the basSQI value is close to 1.
@@ -305,7 +306,8 @@ An abnormal shift in the baseline causes the bassqi to decrease.</p>
 <dl class="py function">
 <dt id="ecg_qc.sqi_computing.sqi_power_spectrum.psqi">
 <code class="sig-prename descclassname">ecg_qc.sqi_computing.sqi_power_spectrum.</code><code class="sig-name descname">psqi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ecg_signal</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">sampling_frequency</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/ecg_qc/sqi_computing/sqi_power_spectrum.html#psqi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ecg_qc.sqi_computing.sqi_power_spectrum.psqi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the power spectrum Distribution of QRS Wave. It corresponds to the ratio of the energy of the QRS wave and the energy of the ECG signal.
+<dd><p>Computes the power spectrum Distribution of QRS Wave.</p>
+<p>It corresponds to the ratio of the energy of the QRS wave and the energy of the ECG signal.
 The energy of the QRS wave is computed on frequencies ranging from 5Hz to 15Hz, the energy of the ECG signal is computed on
 frequencies ranging from 5Hz to 40Hz.</p>
 <p>If interference exists, the high-frequency component increases, and pSQI decreases.</p>
@@ -318,6 +320,65 @@ frequencies ranging from 5Hz to 40Hz.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>p_sqi_score</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="r-r-interval-sqi">
+<h2>R-R interval sqi<a class="headerlink" href="#r-r-interval-sqi" title="Permalink to this headline">¶</a></h2>
+<p>An ECG signal is a periodic signal composed of P, Q, R and T wave.</p>
+<a class="reference internal image-reference" href="_images/pqrst_wave.jpg"><img alt="_images/pqrst_wave.jpg" src="_images/pqrst_wave.jpg" style="width: 500px;" /></a>
+<p><a class="reference external" href="https://www.aclsmedicaltraining.com/basics-of-ecg/">https://www.aclsmedicaltraining.com/basics-of-ecg/</a></p>
+<p>R wave has the maximum amplitude and most obvious characteristic so we often characterize the ECG signal by R wave detection.</p>
+<span class="target" id="module-ecg_qc.sqi_computing.sqi_rr_intervals"></span><dl class="py function">
+<dt id="ecg_qc.sqi_computing.sqi_rr_intervals.compute_qrs_frames_correlation">
+<code class="sig-prename descclassname">ecg_qc.sqi_computing.sqi_rr_intervals.</code><code class="sig-name descname">compute_qrs_frames_correlation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qrs_frames_1</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">qrs_frames_2</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">sampling_frequency</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">matching_qrs_frames_tolerance</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/ecg_qc/sqi_computing/sqi_rr_intervals.html#compute_qrs_frames_correlation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ecg_qc.sqi_computing.sqi_rr_intervals.compute_qrs_frames_correlation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="ecg_qc.sqi_computing.sqi_rr_intervals.csqi">
+<code class="sig-prename descclassname">ecg_qc.sqi_computing.sqi_rr_intervals.</code><code class="sig-name descname">csqi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ecg_signal</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">sampling_frequency</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/ecg_qc/sqi_computing/sqi_rr_intervals.html#csqi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ecg_qc.sqi_computing.sqi_rr_intervals.csqi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variability in the R-R Interval</p>
+<p>When an artifact is present, the QRS detector underperforms by either missing R-peaks or erroneously identifying noisy peaks as R- peaks.
+The above two problems will lead to a high degree of variability in the distribution of R-R intervals;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecg_signal</strong> (<em>list</em>) – Input ECG signal</p></li>
+<li><p><strong>sampling_frequency</strong> (<em>list</em>) – Input ecg sampling frequency</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>c_sqi_score</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ecg_qc.sqi_computing.sqi_rr_intervals.qsqi">
+<code class="sig-prename descclassname">ecg_qc.sqi_computing.sqi_rr_intervals.</code><code class="sig-name descname">qsqi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ecg_signal</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">sampling_frequency</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/ecg_qc/sqi_computing/sqi_rr_intervals.html#qsqi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ecg_qc.sqi_computing.sqi_rr_intervals.qsqi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matching Degree of R Peak Detection</p>
+<p>Two R wave detection algorithms are compared with their respective number of R waves detected.</p>
+<ul class="simple">
+<li><p>Hamilton</p></li>
+<li><p>SWT (Stationary Wavelet Transform)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecg_signal</strong> (<em>list</em>) – Input ECG signal</p></li>
+<li><p><strong>sampling_frequency</strong> (<em>list</em>) – Input ecg sampling frequency</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>q_sqi_score</strong></p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>

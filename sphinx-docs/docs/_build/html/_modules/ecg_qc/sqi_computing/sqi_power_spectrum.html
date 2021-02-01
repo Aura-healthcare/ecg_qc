@@ -148,7 +148,9 @@
 
 
 <div class="viewcode-block" id="psqi"><a class="viewcode-back" href="../../../ecg_qc.html#ecg_qc.sqi_computing.sqi_power_spectrum.psqi">[docs]</a><span class="k">def</span> <span class="nf">psqi</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">sampling_frequency</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Computes the power spectrum Distribution of QRS Wave. It corresponds to the ratio of the energy of the QRS wave and the energy of the ECG signal. </span>
+    <span class="sd">&quot;&quot;&quot;Computes the power spectrum Distribution of QRS Wave. </span>
+<span class="sd">    </span>
+<span class="sd">    It corresponds to the ratio of the energy of the QRS wave and the energy of the ECG signal. </span>
 <span class="sd">    The energy of the QRS wave is computed on frequencies ranging from 5Hz to 15Hz, the energy of the ECG signal is computed on </span>
 <span class="sd">    frequencies ranging from 5Hz to 40Hz.</span>
 
@@ -177,13 +179,14 @@
                <span class="n">xf</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">xf</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">15</span><span class="p">]</span>
     <span class="n">pds_denom</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yf</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xf</span><span class="p">))</span> <span class="k">if</span>
                  <span class="n">xf</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">xf</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">40</span><span class="p">]</span>
-    <span class="n">p_sqi_score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">pds_num</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pds_denom</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">p_sqi_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">pds_num</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pds_denom</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">p_sqi_score</span></div>
 
 
 <div class="viewcode-block" id="bassqi"><a class="viewcode-back" href="../../../ecg_qc.html#ecg_qc.sqi_computing.sqi_power_spectrum.bassqi">[docs]</a><span class="k">def</span> <span class="nf">bassqi</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">sampling_frequency</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Computes the relative Power in the Baseline.</span>
+    <span class="sd">&quot;&quot;&quot;Computes the relative power in the Baseline.</span>
+<span class="sd">    </span>
 <span class="sd">    It corresponds to the ratio of the energy of the QRS wave and the energy of the ECG signal. </span>
 <span class="sd">    The energy of the baseline is computed on frequencies ranging from 0Hz to 1Hz, the energy of the ECG signal is computed on </span>
 <span class="sd">    frequencies ranging from 0Hz to 40Hz.</span>
@@ -215,7 +218,7 @@
     <span class="n">pds_denom</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yf</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xf</span><span class="p">))</span> <span class="k">if</span>
                  <span class="n">xf</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">xf</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">40</span><span class="p">]</span>
 
-    <span class="n">bas_sqi_score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">pds_num</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pds_denom</span><span class="p">)),</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">bas_sqi_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">pds_num</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pds_denom</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">bas_sqi_score</span></div>
 </pre></div>

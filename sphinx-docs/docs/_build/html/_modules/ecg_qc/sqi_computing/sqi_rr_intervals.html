@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ecg_qc.sqi_computing.sqi_rr_intervals &mdash; ecg_qc 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> ecg_qc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecg_qc.html">API documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ecg_qc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>ecg_qc.sqi_computing.sqi_rr_intervals</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ecg_qc.sqi_computing.sqi_rr_intervals</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">ecgdetectors</span> <span class="kn">import</span> <span class="n">Detectors</span>
+<span class="kn">import</span> <span class="nn">biosppy.signals.ecg</span> <span class="k">as</span> <span class="nn">bsp_ecg</span>
+
+
+<div class="viewcode-block" id="csqi"><a class="viewcode-back" href="../../../ecg_qc.html#ecg_qc.sqi_computing.sqi_rr_intervals.csqi">[docs]</a><span class="k">def</span> <span class="nf">csqi</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">sampling_frequency</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Variability in the R-R Interval</span>
+
+<span class="sd">    When an artifact is present, the QRS detector underperforms by either missing R-peaks or erroneously identifying noisy peaks as R- peaks. </span>
+<span class="sd">    The above two problems will lead to a high degree of variability in the distribution of R-R intervals;</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ecg_signal : list</span>
+<span class="sd">        Input ECG signal</span>
+<span class="sd">    sampling_frequency : list</span>
+<span class="sd">        Input ecg sampling frequency</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    c_sqi_score : float</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">rri_list</span> <span class="o">=</span> <span class="n">bsp_ecg</span><span class="o">.</span><span class="n">hamilton_segmenter</span><span class="p">(</span>
+                    <span class="n">signal</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">),</span>
+                    <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sampling_frequency</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">c_sqi_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">rri_list</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rri_list</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">c_sqi_score</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="n">c_sqi_score</span></div>
+
+
+<div class="viewcode-block" id="qsqi"><a class="viewcode-back" href="../../../ecg_qc.html#ecg_qc.sqi_computing.sqi_rr_intervals.qsqi">[docs]</a><span class="k">def</span> <span class="nf">qsqi</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">sampling_frequency</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Matching Degree of R Peak Detection</span>
+<span class="sd">    </span>
+<span class="sd">    Two R wave detection algorithms are compared with their respective number of R waves detected.</span>
+<span class="sd">    </span>
+<span class="sd">    * Hamilton</span>
+<span class="sd">    * SWT (Stationary Wavelet Transform)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ecg_signal : list</span>
+<span class="sd">        Input ECG signal</span>
+<span class="sd">    sampling_frequency : list</span>
+<span class="sd">        Input ecg sampling frequency</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    q_sqi_score : float</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">detectors</span> <span class="o">=</span> <span class="n">Detectors</span><span class="p">(</span><span class="n">sampling_frequency</span><span class="p">)</span>
+    <span class="n">qrs_frames_swt</span> <span class="o">=</span> <span class="n">detectors</span><span class="o">.</span><span class="n">swt_detector</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">)</span>
+    <span class="n">qrs_frames_hamilton</span> <span class="o">=</span> <span class="n">bsp_ecg</span><span class="o">.</span><span class="n">hamilton_segmenter</span><span class="p">(</span>
+            <span class="n">signal</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">),</span>
+            <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sampling_frequency</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">q_sqi_score</span> <span class="o">=</span> <span class="n">compute_qrs_frames_correlation</span><span class="p">(</span><span class="n">qrs_frames_hamilton</span><span class="p">,</span>
+                                                 <span class="n">qrs_frames_swt</span><span class="p">,</span>
+                                                 <span class="n">sampling_frequency</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">q_sqi_score</span></div>
+
+
+<div class="viewcode-block" id="compute_qrs_frames_correlation"><a class="viewcode-back" href="../../../ecg_qc.html#ecg_qc.sqi_computing.sqi_rr_intervals.compute_qrs_frames_correlation">[docs]</a><span class="k">def</span> <span class="nf">compute_qrs_frames_correlation</span><span class="p">(</span><span class="n">qrs_frames_1</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+                                   <span class="n">qrs_frames_2</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+                                   <span class="n">sampling_frequency</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                                   <span class="n">matching_qrs_frames_tolerance</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+    <span class="n">single_frame_duration</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">sampling_frequency</span>
+
+    <span class="n">frame_tolerance</span> <span class="o">=</span> <span class="n">matching_qrs_frames_tolerance</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="mf">0.001</span> <span class="o">/</span> <span class="n">single_frame_duration</span><span class="p">)</span>
+
+    <span class="c1"># Catch complete failed QRS detection</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qrs_frames_1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">qrs_frames_2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">matching_frames</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">qrs_frames_1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">qrs_frames_2</span><span class="p">):</span>
+        <span class="n">min_qrs_frame</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">qrs_frames_1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">qrs_frames_2</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="c1"># Get missing detected beats intervals</span>
+
+        <span class="c1"># Matching frames</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">qrs_frames_2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">qrs_frames_1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">frame_tolerance</span><span class="p">:</span>
+            <span class="n">matching_frames</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># increment first QRS in frame list</span>
+            <span class="k">if</span> <span class="n">min_qrs_frame</span> <span class="o">==</span> <span class="n">qrs_frames_1</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">correlation_coefs</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">matching_frames</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">qrs_frames_1</span><span class="p">)</span> <span class="o">+</span>
+                                               <span class="nb">len</span><span class="p">(</span><span class="n">qrs_frames_2</span><span class="p">))</span>
+
+    <span class="n">correlation_coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">correlation_coefs</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">correlation_coefs</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Aura Healthcare
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -4,7 +4,23 @@ import biosppy.signals.ecg as bsp_ecg
 
 
 def csqi(ecg_signal: list, sampling_frequency: int) -> float:
+    """Variability in the R-R Interval
 
+    When an artifact is present, the QRS detector underperforms by either missing R-peaks or erroneously identifying noisy peaks as R- peaks. 
+    The above two problems will lead to a high degree of variability in the distribution of R-R intervals;
+    
+    Parameters
+    ----------
+    ecg_signal : list
+        Input ECG signal
+    sampling_frequency : list
+        Input ecg sampling frequency
+
+    Returns
+    -------
+    c_sqi_score : float
+
+    """
     with np.errstate(invalid='raise'):
 
         try:
@@ -13,8 +29,7 @@ def csqi(ecg_signal: list, sampling_frequency: int) -> float:
                     signal=np.array(ecg_signal),
                     sampling_rate=sampling_frequency)[0]
 
-            c_sqi_score = float(
-                round(np.std(rri_list, ddof=1) / np.mean(rri_list), 2))
+            c_sqi_score = float(np.round(np.std(rri_list, ddof=1) / np.mean(rri_list), 2))
 
         except Exception:
             c_sqi_score = 0
@@ -23,7 +38,25 @@ def csqi(ecg_signal: list, sampling_frequency: int) -> float:
 
 
 def qsqi(ecg_signal: list, sampling_frequency: int) -> float:
+    """Matching Degree of R Peak Detection
+    
+    Two R wave detection algorithms are compared with their respective number of R waves detected.
+    
+    * Hamilton
+    * SWT (Stationary Wavelet Transform)
 
+    Parameters
+    ----------
+    ecg_signal : list
+        Input ECG signal
+    sampling_frequency : list
+        Input ecg sampling frequency
+
+    Returns
+    -------
+    q_sqi_score : float
+
+    """
     detectors = Detectors(sampling_frequency)
     qrs_frames_swt = detectors.swt_detector(ecg_signal)
     qrs_frames_hamilton = bsp_ecg.hamilton_segmenter(
