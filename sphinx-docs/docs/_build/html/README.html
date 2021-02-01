@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; ecg_qc 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to ecg_qc’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ecg_qc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul class="simple">
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ecg_qc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>&lt;no title&gt;</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p># ECG_QC (Quality Classification)</p>
+<p>[![PyPI version](<a class="reference external" href="https://badge.fury.io/py/ecg-qc.svg)](https://badge.fury.io/py/ecg-qc">https://badge.fury.io/py/ecg-qc.svg)](https://badge.fury.io/py/ecg-qc</a>)
+[![Build Status](<a class="reference external" href="https://travis-ci.com/Aura-healthcare/ecg_qc.svg?branch=main)](https://travis-ci.com/Aura-healthcare/ecg_qc">https://travis-ci.com/Aura-healthcare/ecg_qc.svg?branch=main)](https://travis-ci.com/Aura-healthcare/ecg_qc</a>)
+[![codecov](<a class="reference external" href="https://codecov.io/gh/Aura-healthcare/ecg_qc/branch/main/graph/badge.svg?token=8QZ5G68SF2)](https://codecov.io/gh/Aura-healthcare/ecg_qc">https://codecov.io/gh/Aura-healthcare/ecg_qc/branch/main/graph/badge.svg?token=8QZ5G68SF2)](https://codecov.io/gh/Aura-healthcare/ecg_qc</a>)
+[![CodeFactor](<a class="reference external" href="https://www.codefactor.io/repository/github/aura-healthcare/ecg_qc/badge)](https://www.codefactor.io/repository/github/aura-healthcare/ecg_qc">https://www.codefactor.io/repository/github/aura-healthcare/ecg_qc/badge)](https://www.codefactor.io/repository/github/aura-healthcare/ecg_qc</a>)
+[![License: GPL v3](<a class="reference external" href="https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0">https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0</a>)
+[![Downloads](<a class="reference external" href="https://pepy.tech/badge/ecg-qc)](https://pepy.tech/project/ecg-qc">https://pepy.tech/badge/ecg-qc)](https://pepy.tech/project/ecg-qc</a>)</p>
+<p>[![SonarCloud](<a class="reference external" href="https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=Aura-healthcare_ecg_qc">https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=Aura-healthcare_ecg_qc</a>)</p>
+<p><strong>Website</strong> : <a class="reference external" href="https://www.aura.healthcare">https://www.aura.healthcare</a></p>
+<p><strong>Github</strong> : <a class="reference external" href="https://github.com/Aura-healthcare">https://github.com/Aura-healthcare</a></p>
+<p><strong>Version</strong> : 1.0b4</p>
+<p>## Installation / Prerequisites</p>
+<p>#### Dependencies</p>
+<p>ecg_qc requires:</p>
+<ul class="simple">
+<li><p>Python (&gt;= 3.6)</p></li>
+<li><p>biosppy&gt;=0.6.1</p></li>
+<li><p>pathtools&gt;=0.1.2</p></li>
+<li><p>py-ecg-detectors&gt;=1.0.2</p></li>
+<li><p>scikit-learn&gt;=0.23.2</p></li>
+<li><p>wfdb&gt;=3.1.1</p></li>
+<li><p>xgboost&gt;=1.3.1</p></li>
+</ul>
+<p>#### User installation</p>
+<p>The easiest way to install hrv-analysis is using <code class="docutils literal notranslate"><span class="pre">pip</span></code> :</p>
+<blockquote>
+<div><p>$ pip install ecg-qc</p>
+</div></blockquote>
+<p>you can also clone the repository:</p>
+<blockquote>
+<div><p>$ git clone <a class="reference external" href="https://github.com/Aura-healthcare/ecg_qc.git">https://github.com/Aura-healthcare/ecg_qc.git</a>
+$ python setup.py install</p>
+</div></blockquote>
+<p>## Getting started</p>
+<p>### Usage</p>
+<p>Import:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">from</span> <span class="pre">ecg_qc</span> <span class="pre">import</span> <span class="pre">ecg_qc</span>
+<span class="pre">`</span></code></p>
+<p>Class initialization:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">ecg_qc</span> <span class="pre">=</span> <span class="pre">ecg_qc()</span>
+<span class="pre">`</span></code></p>
+<p>Default parameters</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+ecg_qc = ecg_qc(data_encoder=’{}/ml/data_encoder/data_encoder.joblib’.format(</p>
+<blockquote>
+<div><blockquote>
+<div><p>lib_path),</p>
+</div></blockquote>
+<p>model=’{}/ml/models/xgb.joblib’.format(lib_path),
+sampling_frequency=1000))</p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>Predicting the quality of the signal</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+ecg_data = [1905.72, … -150.75995323, -134.14559104] # ECG values with same sampling frequency as class declaration</p>
+<p>signal_quality = ecg_qc.get_signal_quality(ecg_data)
+<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>## Authors</p>
+<p><strong>Alexandre CHIROUZE</strong> - (<a class="reference external" href="https://github.com/achirouze">https://github.com/achirouze</a>)</p>
+<p><strong>Alexis COMTE</strong> - (<a class="reference external" href="https://github.com/alexisgcomte">https://github.com/alexisgcomte</a>)</p>
+<p><strong>Laura DUMONT</strong> - (<a class="reference external" href="https://github.com/laudmt">https://github.com/laudmt</a>)</p>
+<p>## License</p>
+<p>This project is licensed under the <em>GNU GENERAL PUBLIC License</em> - see the [LICENSE.md](<a class="reference external" href="https://github.com/Aura-healthcare/ecg_qc/blob/main/LICENSE">https://github.com/Aura-healthcare/ecg_qc/blob/main/LICENSE</a>) file for details</p>
+<p>## Acknowledgments</p>
+<p>to complete</p>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to ecg_qc’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Aura Healthcare
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
