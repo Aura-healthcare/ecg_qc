@@ -5,13 +5,21 @@ import biosppy.signals.ecg as bsp_ecg
 
 def csqi(ecg_signal: list, sampling_frequency: int) -> float:
 
-    rri_list = bsp_ecg.hamilton_segmenter(
-            signal=np.array(ecg_signal),
-            sampling_rate=sampling_frequency)[0]
+    with np.errstate(invalid='raise'):
 
-    c_sqi_score = float(round(np.std(rri_list, ddof=1) / np.mean(rri_list), 2))
+        try:
 
-    return c_sqi_score
+            rri_list = bsp_ecg.hamilton_segmenter(
+                    signal=np.array(ecg_signal),
+                    sampling_rate=sampling_frequency)[0]
+
+            c_sqi_score = float(
+                round(np.std(rri_list, ddof=1) / np.mean(rri_list), 2))
+
+        except Exception:
+            c_sqi_score = 0
+
+        return c_sqi_score
 
 
 def qsqi(ecg_signal: list, sampling_frequency: int) -> float:
@@ -29,10 +37,10 @@ def qsqi(ecg_signal: list, sampling_frequency: int) -> float:
     return q_sqi_score
 
 
-def compute_qrs_frames_correlation(qrs_frames_1,
-                                   qrs_frames_2,
-                                   sampling_frequency,
-                                   matching_qrs_frames_tolerance=50):
+def compute_qrs_frames_correlation(qrs_frames_1: list,
+                                   qrs_frames_2: list,
+                                   sampling_frequency: int,
+                                   matching_qrs_frames_tolerance=50) -> float:
 
     single_frame_duration = 1/sampling_frequency
 
