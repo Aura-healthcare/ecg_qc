@@ -7,10 +7,12 @@ Welcome to ecg_qc's documentation!
 ==================================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Contents:
    
    ecg_qc
+   
+   references
 
 Indices and tables
 ==================

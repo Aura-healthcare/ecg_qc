@@ -63,3 +63,7 @@ html_static_path = ['_static']
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'ecg_qc_doc'
+
+html_theme_options = {
+    'navigation_depth': 4,
+}
