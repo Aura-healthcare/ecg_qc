@@ -26,7 +26,7 @@ class ecg_qc:
                            ecg_signal: list) -> list:
 
         if self.normalized:
-            StandardScaler().fit_transform(
+            ecg_signal = StandardScaler().fit_transform(
                 ecg_signal.reshape(-1, 1)).reshape(1, -1)[0]
 
         q_sqi_score = qsqi(ecg_signal, self.sampling_frequency)

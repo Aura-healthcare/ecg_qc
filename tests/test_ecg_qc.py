@@ -52,11 +52,15 @@ def test_get_signal_quality(ecg_signal=ecg_signal):
     assert isinstance(quality_predicted, int)
 
 
-def test_get_signal_quality_normalized(ecg_signal=ecg_signal,
-                                       normalized=True):
+def test_get_signal_quality_normalized(ecg_signal=ecg_signal):
 
-    quality_predicted = ecg_qc_test_norm.get_signal_quality(ecg_signal)
-    assert isinstance(quality_predicted, int)
+    sqis = ecg_qc_test.compute_sqi_scores(ecg_signal)
+    sqis_norm = ecg_qc_test_norm.compute_sqi_scores(ecg_signal)
+
+    quality_predicted_norm = ecg_qc_test_norm.get_signal_quality(ecg_signal)
+
+    assert isinstance(quality_predicted_norm, int)
+    assert sqis != sqis_norm
 
 
 def test_validate_prediction(sample_sqi_0=sample_sqi_0,
