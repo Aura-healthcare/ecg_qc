@@ -6,9 +6,11 @@ import biosppy.signals.ecg as bsp_ecg
 def csqi(ecg_signal: list, sampling_frequency: int) -> float:
     """Variability in the R-R Interval
 
-    When an artifact is present, the QRS detector underperforms by either missing R-peaks or erroneously identifying noisy peaks as R- peaks. 
-    The above two problems will lead to a high degree of variability in the distribution of R-R intervals;
-    
+    When an artifact is present, the QRS detector underperforms by either
+    missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+    above two problems will lead to a high degree of variability in the
+    distribution of R-R intervals;
+
     Parameters
     ----------
     ecg_signal : list
@@ -29,7 +31,9 @@ def csqi(ecg_signal: list, sampling_frequency: int) -> float:
                     signal=np.array(ecg_signal),
                     sampling_rate=sampling_frequency)[0]
 
-            c_sqi_score = float(np.round(np.std(rri_list, ddof=1) / np.mean(rri_list), 2))
+            c_sqi_score = float(np.round(
+                np.std(rri_list, ddof=1) / np.mean(rri_list),
+                3))
 
         except Exception:
             c_sqi_score = 0
@@ -39,9 +43,10 @@ def csqi(ecg_signal: list, sampling_frequency: int) -> float:
 
 def qsqi(ecg_signal: list, sampling_frequency: int) -> float:
     """Matching Degree of R Peak Detection
-    
-    Two R wave detection algorithms are compared with their respective number of R waves detected.
-    
+
+    Two R wave detection algorithms are compared with their respective number
+    of R waves detected.
+
     * Hamilton
     * SWT (Stationary Wavelet Transform)
 
@@ -108,6 +113,6 @@ def compute_qrs_frames_correlation(qrs_frames_1: list,
     correlation_coefs = 2 * matching_frames / (len(qrs_frames_1) +
                                                len(qrs_frames_2))
 
-    correlation_coefs = round(correlation_coefs, 2)
+    correlation_coefs = round(correlation_coefs, 3)
 
     return correlation_coefs
