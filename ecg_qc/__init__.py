@@ -5,4 +5,4 @@
 
 __version__ = '1.0'
 
-from ecg_qc.ecg_qc import ecg_qc
+from ecg_qc.ecg_qc import Ecg_Qc

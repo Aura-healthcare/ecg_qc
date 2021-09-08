@@ -4,20 +4,18 @@ from ecg_qc.sqi_computing.sqi_frequency_distribution import ssqi, ksqi
 from ecg_qc.sqi_computing.sqi_power_spectrum import bassqi, psqi
 from sklearn.preprocessing import StandardScaler
 import os
+import numpy as np
 
 lib_path = os.path.dirname(__file__)
 
 
-class ecg_qc:
+class Ecg_Qc:
 
     def __init__(self,
-                 data_encoder='{}/ml/data_encoder/data_encoder.joblib'.format(
-                     lib_path),
-                 model='{}/ml/models/xgb.joblib'.format(lib_path),
+                 model=f'{lib_path}/ml/models/xgb_9s.joblib',
                  sampling_frequency: int = 1000,
                  normalized: bool = False):
 
-        self.data_encoder = load(data_encoder)
         self.model = load(model)
         self.sampling_frequency = sampling_frequency
         self.normalized = normalized
@@ -28,7 +26,7 @@ class ecg_qc:
         if self.normalized:
             ecg_signal = StandardScaler().fit_transform(
                 ecg_signal.reshape(-1, 1)).reshape(1, -1)[0]
-
+	
         q_sqi_score = qsqi(ecg_signal, self.sampling_frequency)
         c_sqi_score = csqi(ecg_signal, self.sampling_frequency)
 
@@ -44,12 +42,14 @@ class ecg_qc:
         return sqi_scores
 
     def predict_quality(self, sqi_scores: list) -> int:
-        X = self.data_encoder.transform(sqi_scores)
-        prediction = int(self.model.predict(X))
+ 
+        sqi_scores = np.array(sqi_scores)
+        prediction = int(self.model.predict(sqi_scores))
+	    
         return prediction
 
     def get_signal_quality(self,
-                           ecg_signal: list):
+                           ecg_signal: list) -> int:
 
         sqi_scores = self.compute_sqi_scores(ecg_signal)
         quality_predicted = self.predict_quality(sqi_scores)

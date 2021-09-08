@@ -9,7 +9,7 @@ from ecg_qc.ecg_qc import ecg_qc
 # sys arg
 
 patient = '103001'
-window = 9
+window = 2
 sampling_frequency = 1000
 input_data_folder = 'datasets/1_ecg_and_annotation_creation'
 output_folder = 'datasets/2_dataset_creation'
@@ -93,7 +93,7 @@ def binary_class_encoding(numeric_label):
 
 def classification_correspondance(timestamp: int,
                                   sampling_frequency: int = 1000,
-                                  window: int = 9):
+                                  window: int = 2):
 
     start = timestamp
     end = start + window * sampling_frequency - 1
@@ -105,7 +105,7 @@ def classification_correspondance(timestamp: int,
 
 def classification_correspondance_avg(timestamp,
                                       sampling_frequency=1000,
-                                      window=9):
+                                      window=2):
 
     start = timestamp
     end = start + window * sampling_frequency - 1
@@ -137,7 +137,7 @@ if __name__ == '__main__':
     df_ml['classif'] = df_ml['timestamp_start'].apply(
         lambda x: classification_correspondance(x))
     df_ml['classif_avg'] = df_ml['timestamp_start'].apply(
-        lambda x: classification_correspondance_avg(x, window=9))
+        lambda x: classification_correspondance_avg(x, window=22))
 
     if normalized:
         df_ml.to_csv('{}/df_ml_{}_norm.csv'.format(output_folder, patient),
