@@ -9,7 +9,7 @@ import numpy as np
 lib_path = os.path.dirname(__file__)
 
 
-class Ecg_Qc:
+class EcgQc:
 
     def __init__(self,
                  model=f'{lib_path}/ml/models/xgb_9s.joblib',

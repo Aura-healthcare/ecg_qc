@@ -2,7 +2,7 @@ import sklearn
 import xgboost
 import pandas as pd
 import numpy as np
-from ecg_qc.ecg_qc import Ecg_Qc 
+from ecg_qc.ecg_qc import EcgQc 
 
 from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
 from ecg_qc.sqi_computing.sqi_frequency_distribution import ssqi, ksqi
@@ -16,8 +16,8 @@ sample_sqi_1 = [[0.67, 0.54, 5.15, 35.58, 0.48, 0.93]]
 
 ecg_signal = pd.read_csv('tests/tests_datasets/ecg_record_sample.csv')
 ecg_signal = ecg_signal.iloc[:time_window * fs]['ecg_record'].values
-ecg_qc_test = Ecg_Qc()
-ecg_qc_test_norm = Ecg_Qc(normalized=True)
+ecg_qc_test = EcgQc()
+ecg_qc_test_norm = EcgQc(normalized=True)
 
 
 def test_init():
