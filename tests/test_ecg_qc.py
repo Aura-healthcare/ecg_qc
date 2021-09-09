@@ -1,8 +1,7 @@
-import sklearn
 import xgboost
 import pandas as pd
 import numpy as np
-from ecg_qc.ecg_qc import EcgQc 
+from ecg_qc.ecg_qc import EcgQc
 
 from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
 from ecg_qc.sqi_computing.sqi_frequency_distribution import ssqi, ksqi
