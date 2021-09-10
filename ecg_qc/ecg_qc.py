@@ -1,10 +1,12 @@
-from joblib import load
 from ecg_qc.sqi_computing.sqi_rr_intervals import csqi, qsqi
 from ecg_qc.sqi_computing.sqi_frequency_distribution import ssqi, ksqi
 from ecg_qc.sqi_computing.sqi_power_spectrum import bassqi, psqi
+from ecg_qc.utilities.type_checking import check_type_ecg
+from ecg_qc.utilities.model_loader import load_model
 from sklearn.preprocessing import StandardScaler
 import os
 import numpy as np
+
 
 lib_path = os.path.dirname(__file__)
 
@@ -41,7 +43,7 @@ class EcgQc:
                  sampling_frequency: int = 1000,
                  normalized: bool = False):
 
-        self.model = load(model)
+        self.model = load_model(model)
         self.sampling_frequency = sampling_frequency
         self.normalized = normalized
 
@@ -61,6 +63,9 @@ class EcgQc:
         sqi_scores : list
             SQI scores related to input ECG segment
         """
+
+        ecg_signal = check_type_ecg(ecg_signal)
+
         if self.normalized:
             ecg_signal = StandardScaler().fit_transform(
                 ecg_signal.reshape(-1, 1)).reshape(1, -1)[0]
