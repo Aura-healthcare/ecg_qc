@@ -10,9 +10,7 @@
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=Aura-healthcare_ecg_qc)
 
-
 ![alt text](docs/source/images/ecg_signal_classification.png)
-
 
 **Full Documentation** : https://aura-healthcare.github.io/ecg_qc/
 
