@@ -10,11 +10,17 @@
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=Aura-healthcare_ecg_qc)
 
+
+![alt text](docs/source/images/ecg_signal_classification.png)
+
+
+**Full Documentation** : https://aura-healthcare.github.io/ecg_qc/
+
 **Website** : https://www.aura.healthcare
 
 **Github** : https://github.com/Aura-healthcare
 
-**Version** : 1.0b4
+**Version** : 1.0b5
 
 ## Installation / Prerequisites
 
@@ -24,6 +30,7 @@ ecg_qc requires:
 
 - Python (>= 3.6)
 - biosppy>=0.6.1
+- dill>=0.3.4
 - pathtools>=0.1.2
 - py-ecg-detectors>=1.0.2
 - scikit-learn>=0.23.2
@@ -49,7 +56,7 @@ you can also clone the repository:
 Import:
 
 ```python
-from ecg_qc import ecg_qc
+from ecg_qc import EcgQc()
 ```
 
 Class initialization:
@@ -58,23 +65,31 @@ Class initialization:
 ecg_qc = ecg_qc()
 ```
 
-Default parameters
+Default parameters:
 
 ```python
-ecg_qc = ecg_qc(data_encoder='{}/ml/data_encoder/data_encoder.joblib'.format(
-                     lib_path),
-                 model='{}/ml/models/xgb.joblib'.format(lib_path),
-                 sampling_frequency=1000))
+ecg_qc = EcgQc(model='ecg_qc/trained_models/xgb_9s.joblib',
+               sampling_frequency=1000,
+               normalized=False)
 ```
 
-Predicting the quality of the signal
-
+Predicting the quality of the signal:
 
 ```python
 ecg_data = [1905.72, ... -150.75995323, -134.14559104] # ECG values with same sampling frequency as class declaration
 
 signal_quality = ecg_qc.get_signal_quality(ecg_data)
 ```
+
+Computing SQIs before making prediction:
+
+```python
+ecg_data = [1905.72, ... -150.75995323, -134.14559104] # ECG values with same sampling frequency as class declaration
+
+sqi_scores = ecg_qc.compute_sqi_score(ecg_data)
+signal_quality = ecg_qc.predict_quality(sqi_scores)
+```
+
 
 ## Authors
 
@@ -89,6 +104,6 @@ signal_quality = ecg_qc.get_signal_quality(ecg_data)
 This project is licensed under the *GNU GENERAL PUBLIC License* - see the [LICENSE.md](https://github.com/Aura-healthcare/ecg_qc/blob/main/LICENSE) file for details
 
 
-## Acknowledgments
-
-to complete
+References
+==========
+Nemcova, A., Smisek, R., Opravilová, K., Vitek, M., Smital, L., & Maršánová, L. (2020). Brno University of Technology ECG Quality Database (BUT QDB) (version 1.0.0). PhysioNet. https://doi.org/10.13026/kah4-0w24.
