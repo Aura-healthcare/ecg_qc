@@ -19,7 +19,7 @@ ecg_qc_test = EcgQc(model='ecg_qc/trained_models/xgb_9s.joblib',
                     sampling_frequency=1000,
                     normalized=False)
 ecg_qc_test_norm = EcgQc(model='ecg_qc/trained_models/xgb_9s.joblib',
-                         sampling_frequency=256,
+                         sampling_frequency=1000,
                          normalized=True)
 
 
