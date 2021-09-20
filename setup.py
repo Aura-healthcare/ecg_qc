@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ecg_qc",
-    version="v1.0-b4",
+    version="v1.0-b5",
     author="Alexandre CHIROUZE, Alexis COMTE, Laura DUMONT",
     license="GPLv3",
     author_email="alexandre@chirouze.tech, alexis.g.comte@gmail.com, laura.dt.dumont@gmail.com",
@@ -25,7 +25,7 @@ setuptools.setup(
         "biosppy>=0.6.1",
         "pathtools>=0.1.2",
         "py-ecg-detectors>=1.0.2",
-        "scikit-learn>=0.23.2",
+        "scikit-learn>=0.24.2",
         "wfdb>=3.1.1",
         "xgboost>=1.3.1"
     ],
