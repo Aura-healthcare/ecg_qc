@@ -54,13 +54,13 @@ you can also clone the repository:
 Import:
 
 ```python
-from ecg_qc import EcgQc()
+from ecg_qc import EcgQc
 ```
 
 Class initialization:
 
 ```python
-ecg_qc = ecg_qc()
+ecg_qc = EcgQc()
 ```
 
 Default parameters:
