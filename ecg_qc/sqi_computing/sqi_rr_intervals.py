@@ -4,18 +4,64 @@ import biosppy.signals.ecg as bsp_ecg
 
 
 def csqi(ecg_signal: list, sampling_frequency: int) -> float:
+    """Variability in the R-R Interval
 
-    rri_list = bsp_ecg.hamilton_segmenter(
-            signal=np.array(ecg_signal),
-            sampling_rate=sampling_frequency)[0]
+    When an artifact is present, the QRS detector underperforms by either
+    missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+    above two problems will lead to a high degree of variability in the
+    distribution of R-R intervals;
 
-    c_sqi_score = float(round(np.std(rri_list, ddof=1) / np.mean(rri_list), 2))
+    Parameters
+    ----------
+    ecg_signal : list
+        Input ECG signal
+    sampling_frequency : list
+        Input ecg sampling frequency
 
-    return c_sqi_score
+    Returns
+    -------
+    c_sqi_score : float
+
+    """
+    with np.errstate(invalid='raise'):
+
+        try:
+
+            rri_list = bsp_ecg.hamilton_segmenter(
+                    signal=np.array(ecg_signal),
+                    sampling_rate=sampling_frequency)[0]
+
+            c_sqi_score = float(np.round(
+                np.std(rri_list, ddof=1) / np.mean(rri_list),
+                3))
+
+        except Exception:
+            c_sqi_score = 0
+
+        return c_sqi_score
 
 
 def qsqi(ecg_signal: list, sampling_frequency: int) -> float:
+    """Matching Degree of R Peak Detection
 
+    Two R wave detection algorithms are compared with their respective number
+    of R waves detected.
+
+    * Hamilton
+    * SWT (Stationary Wavelet Transform)
+
+    Parameters
+    ----------
+    ecg_signal : list
+        Input ECG signal
+    sampling_frequency : list
+        Input ecg sampling frequency
+
+    Returns
+    -------
+    q_sqi_score : float
+
+    """
     detectors = Detectors(sampling_frequency)
     qrs_frames_swt = detectors.swt_detector(ecg_signal)
     qrs_frames_hamilton = bsp_ecg.hamilton_segmenter(
@@ -29,10 +75,10 @@ def qsqi(ecg_signal: list, sampling_frequency: int) -> float:
     return q_sqi_score
 
 
-def compute_qrs_frames_correlation(qrs_frames_1,
-                                   qrs_frames_2,
-                                   sampling_frequency,
-                                   matching_qrs_frames_tolerance=50):
+def compute_qrs_frames_correlation(qrs_frames_1: list,
+                                   qrs_frames_2: list,
+                                   sampling_frequency: int,
+                                   matching_qrs_frames_tolerance=50) -> float:
 
     single_frame_duration = 1/sampling_frequency
 
@@ -67,6 +113,6 @@ def compute_qrs_frames_correlation(qrs_frames_1,
     correlation_coefs = 2 * matching_frames / (len(qrs_frames_1) +
                                                len(qrs_frames_2))
 
-    correlation_coefs = round(correlation_coefs, 2)
+    correlation_coefs = round(correlation_coefs, 3)
 
     return correlation_coefs

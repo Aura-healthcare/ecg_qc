@@ -1,41 +1,58 @@
 import numpy as np
 
 
-def psqi(ecg_signal: list, sampling_frequency: int) -> float:
+def ssqi(ecg_signal: list) -> float:
+    """Computes the skewness sqi.
 
-    n = len(ecg_signal)
-    t = 1 / sampling_frequency
+    Skewness represents how asymetrical a distribution is.
 
-    yf = np.fft.fft(ecg_signal)
-    xf = np.linspace(0.0, 1.0/(2.0*t), n//2)
-
-    fft_results = []
-
-    for offset, element in enumerate(xf):
-        fft_results.append([xf[offset], np.abs(yf[offset])])
-
-    pds_num = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=5 and xf[idx]<=15]
-    pds_denom = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=5 and xf[idx]<=40]
-    p_sqi_score = float(round(sum(pds_num) / sum(pds_denom), 2)) 
-
-    return p_sqi_score
+    * Symetrical distribution : skewness = 0
+    * Asymetrical distribution skewed on the left : skewness < 0
+    * Asymetrical distribution skewed on the right : skewness > 0
 
 
-def bassqi(ecg_signal, sampling_frequency):
-    n = len(ecg_signal)
-    t = 1 / sampling_frequency
+    Parameters
+    ----------
+    ecg_signal : list
+        Input ECG signal
 
-    yf = np.fft.fft(ecg_signal)
-    xf = np.linspace(0.0, 1.0/(2.0*t), n//2)
+    Returns
+    -------
+    s_sqi_score : float
+        rounded skewness sqi score
 
-    fft_results = []
+    """
+    num = np.mean((ecg_signal - np.mean(ecg_signal))**3)
+    s_sqi = num / (np.std(ecg_signal, ddof=1)**3)
+    s_sqi_score = float(round(s_sqi, 3))
 
-    for offset, element in enumerate(xf):
-        fft_results.append([xf[offset], np.abs(yf[offset])])
+    return s_sqi_score
 
-    pds_num = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=0 and xf[idx]<=1]
-    pds_denom = [np.abs(yf[idx]) for idx in range(len(xf)) if xf[idx]>=0 and xf[idx]<=40]
 
-    bas_sqi_score = float(round(1 - (sum(pds_num) / sum(pds_denom)), 2))
+def ksqi(ecg_signal: list) -> float:
+    """Computes the excess kurtosis sqi.
 
-    return bas_sqi_score
+    Kurtosis represents how spread a distribution is.
+
+    * Mesokurtic distribution : excess kurtosis = 0
+    * Leptokurtic distribution : excess kurtosis > 0
+    * Platykurtic distribution : excess kurtosis < 0
+
+
+    Parameters
+    ----------
+    ecg_signal : list
+        Input ECG signal
+
+    Returns
+    -------
+    k_sqi_score : float
+        rounded excess kurtosis sqi score
+
+    """
+    num = np.mean((ecg_signal - np.mean(ecg_signal))**4)
+    k_sqi = num / (np.std(ecg_signal, ddof=1)**4)
+    k_sqi_fischer = k_sqi - 3.0
+    k_sqi_score = float(round(k_sqi_fischer, 3))
+
+    return k_sqi_score
