@@ -24,6 +24,7 @@ setuptools.setup(
     install_requires=[
         "biosppy>=0.6.1",
         "dill>=0.3.4",
+        "numpy>=1.19.5",
         "pathtools>=0.1.2",
         "py-ecg-detectors>=1.0.2",
         "scikit-learn>=0.24.2",
