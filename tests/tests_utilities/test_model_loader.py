@@ -2,8 +2,8 @@ from ecg_qc.utilities.model_loader import load_model
 import sklearn
 import xgboost
 
-joblib_model = 'ecg_qc/ml/models/xgb_9s.joblib'
-pkl_model = 'ecg_qc/ml/models/rfc_2s.pkl'
+joblib_model = 'ecg_qc/trained_models/xgb_9s.joblib'
+pkl_model = 'ecg_qc/trained_models/rfc_2s.pkl'
 
 
 def test_load_joblib(joblib_model: str = joblib_model):

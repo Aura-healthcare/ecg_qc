@@ -39,8 +39,8 @@ class EcgQc:
         From an ECG signal segment, directly returns the quality
     """
     def __init__(self,
-                 model=f'{lib_path}/ml/models/xgb_9s.joblib',
-                 sampling_frequency: int = 1000,
+                 model=f'{lib_path}/trained_models/rfc_norm_2s.pkl',
+                 sampling_frequency: int = 256,
                  normalized: bool = False):
 
         self.model = load_model(model)

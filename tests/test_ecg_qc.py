@@ -15,8 +15,12 @@ sample_sqi_1 = [[0.67, 0.54, 5.15, 35.58, 0.48, 0.93]]
 
 ecg_signal = pd.read_csv('tests/tests_datasets/ecg_record_sample.csv')
 ecg_signal = ecg_signal.iloc[:time_window * fs]['ecg_record'].values
-ecg_qc_test = EcgQc()
-ecg_qc_test_norm = EcgQc(normalized=True)
+ecg_qc_test = EcgQc(model='ecg_qc/trained_models/xgb_9s.joblib',
+                    sampling_frequency=1000,
+                    normalized=False)
+ecg_qc_test_norm = EcgQc(model='ecg_qc/trained_models/xgb_9s.joblib',
+                         sampling_frequency=256,
+                         normalized=True)
 
 
 def test_init():
