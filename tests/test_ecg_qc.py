@@ -39,12 +39,6 @@ def test_compute_sqi_scores(ecg_signal=ecg_signal):
     assert np.array(sqi_scores).shape == (1, 6)
 
 
-# TODO
-def test_ecg_signal_input_format(ecg_signal=ecg_signal):
-
-    sqi_scores = ecg_qc_test.compute_sqi_scores(ecg_signal)
-
-
 def test_predict_quality(sample_sqi=sample_sqi_0):
 
     pred_0 = ecg_qc_test.predict_quality(sample_sqi)
