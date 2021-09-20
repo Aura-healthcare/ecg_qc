@@ -1,1 +1,1 @@
-recursive-include ecg_qc/ml *
+recursive-include ecg_qc/trained_models *
