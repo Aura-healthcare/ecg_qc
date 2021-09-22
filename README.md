@@ -10,7 +10,7 @@
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=Aura-healthcare_ecg_qc)
 
-![alt text](docs/source/images/ecg_signal_classification.png)
+![alt text](sphinx-docs/source/images/ecg_signal_classification.png)
 
 **Full Documentation** : https://aura-healthcare.github.io/ecg_qc/
 
@@ -18,7 +18,18 @@
 
 **Github** : https://github.com/Aura-healthcare
 
-**Version** : 1.0b5
+**Version** : 1.0b6
+
+ecg_qc is a python library that classifies ECG signal into good/bad quality thanks to Machine Learning.
+
+There are currently 4 trained models:
+| Name | Type of model | (training) ECG time window | (training) ECG segments individual standardization |
+| ------ | ----------- | ----------- | ----------- | 
+| dfc_2s.pkl | Decision Tree Classifier | 2 seconds | No |
+| rfc_2s.pkl | Random Forest Classifier | 2 seconds | No |
+| rfc_2s_norm.pkl | Random Forest Classifier | 2 seconds | Yes |
+| xgb_9s.joblib | XGboost Classifier | 9 seconds | No |
+
 
 ## Installation / Prerequisites
 
@@ -66,9 +77,9 @@ ecg_qc = EcgQc()
 Default parameters:
 
 ```python
-ecg_qc = EcgQc(model='ecg_qc/trained_models/xgb_9s.joblib',
-               sampling_frequency=1000,
-               normalized=False)
+ecg_qc = EcgQc(model='rfc_norm_2s.pkl',
+               sampling_frequency=256,
+               normalized=True)
 ```
 
 Predicting the quality of the signal:
