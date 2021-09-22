@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ecg_qc",
-    version="v1.0-b5",
+    version="v1.0-b6",
     author="Alexandre CHIROUZE, Alexis COMTE, Laura DUMONT",
     license="GPLv3",
     author_email="alexandre@chirouze.tech, alexis.g.comte@gmail.com, laura.dt.dumont@gmail.com",
@@ -19,7 +19,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     include_package_data=True,
     url="https://github.com/Aura-healthcare/ecg_qc",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages("ecg_qc", exclude=["tests"]),
     python_requires='>=3.6',
     install_requires=[
         "biosppy>=0.6.1",

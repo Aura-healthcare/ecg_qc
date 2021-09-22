@@ -10,7 +10,7 @@ ECG_QC (ECG Quality Classifier) Methodology aims at creating a library to detect
 
 We have selected patients 103001, 111001, 113001 and 124001 to make a machine learning dataset. SQIs are computed on a time_window of 9 seconds as some SQIs are sensible to short periods of time.
 
-![ecq_qc_methodology_process_map](../doc/images/ecq_qc_methodology_process_map.png)
+![ecq_qc_methodology_process_map](../sphinx-docs/source/images/methodology_images/ecq_qc_methodology_process_map.png)
 
 ### Creating Proper Folders
 
@@ -132,8 +132,8 @@ The validation dataset allow use to have feedback on "real data".
 | **ROC_AUC_score** |  0.920 | **0.871** |
 
 
-![rfc_correlation_matrix](../doc/images/rfc_correlation_matrix_values.png)
-![rfc_correlation_matrix_norm](../doc/images/rfc_correlation_matrix_norm.png)
+![rfc_correlation_matrix](../sphinx-docs/source/images/methodology_images/rfc_correlation_matrix_values.png)
+![rfc_correlation_matrix_norm](../sphinx-docs/source/images/methodology_images/rfc_correlation_matrix_norm.png)
 
 
 ### B - XGBoost Performance
@@ -148,8 +148,8 @@ The validation dataset allow use to have feedback on "real data".
 | **ROC_AUC_score** | 0.972 | **0.876** |
 
 
-![xgb_correlation_matrix](../doc/images/xgb_correlation_matrix_values.png)
-![xgb_correlation_matrix_norm](../doc/images/xgb_correlation_matrix_norm.png)
+![xgb_correlation_matrix](../sphinx-docs/source/images/methodology_images/xgb_correlation_matrix_values.png)
+![xgb_correlation_matrix_norm](../sphinx-docs/source/images/methodology_images/xgb_correlation_matrix_norm.png)
 
 
 ### C - Model Comparison

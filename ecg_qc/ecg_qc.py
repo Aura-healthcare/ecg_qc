@@ -4,11 +4,7 @@ from ecg_qc.sqi_computing.sqi_power_spectrum import bassqi, psqi
 from ecg_qc.utilities.type_checking import check_type_ecg
 from ecg_qc.utilities.model_loader import load_model
 from sklearn.preprocessing import StandardScaler
-import os
 import numpy as np
-
-
-lib_path = os.path.dirname(__file__)
 
 
 class EcgQc:
@@ -21,8 +17,9 @@ class EcgQc:
 
     Attributes
     ----------
-    model :
-        Trained model to load to predict quality
+    model_file : str
+        Trained model to load to predict quality. Can be the name of included
+        pre-trained model or a path to an other model.
     sampling_frequency : int
         Sampling frequency of the input ECG signal. Used for several SQI
         computing
@@ -39,11 +36,11 @@ class EcgQc:
         From an ECG signal segment, directly returns the quality
     """
     def __init__(self,
-                 model=f'{lib_path}/trained_models/rfc_norm_2s.pkl',
+                 model_file='rfc_norm_2s.pkl',
                  sampling_frequency: int = 256,
                  normalized: bool = False):
 
-        self.model = load_model(model)
+        self.model = load_model(model_file)
         self.sampling_frequency = sampling_frequency
         self.normalized = normalized
 

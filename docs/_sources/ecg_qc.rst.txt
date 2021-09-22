@@ -1,21 +1,20 @@
 API documentation
 ==================
 
-ecg_qc is a pyton library that classifies ECG signal to 0 = bad quality and 1 = good quality.
+ecg_qc is a python library that classifies ECG signal to 0 = bad quality and 1 = good quality.
 
 0 = bad quality corresponds to an ECG signal containing baseline shift, hight frequency noise which disturbs the QRS analysis.
 
 1 = good quality corresponds to a clean ECG signal where the QRS can be perfectly detected.
 
-ecg_qc main class
+EcgQc class
 -----------------
 
-.. automodule:: ecg_qc.ecg_qc
-    :members:
+.. autoclass:: ecg_qc.ecg_qc.EcgQc
+    :members: 
     :undoc-members:
     :show-inheritance:
-    
-    
+
     
 Frequency distribution sqi
 --------------------------
