@@ -71,11 +71,7 @@
 <span class="kn">from</span> <span class="nn">ecg_qc.utilities.type_checking</span> <span class="kn">import</span> <span class="n">check_type_ecg</span>
 <span class="kn">from</span> <span class="nn">ecg_qc.utilities.model_loader</span> <span class="kn">import</span> <span class="n">load_model</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-
-<span class="n">lib_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="EcgQc"><a class="viewcode-back" href="../../ecg_qc.html#ecg_qc.ecg_qc.EcgQc">[docs]</a><span class="k">class</span> <span class="nc">EcgQc</span><span class="p">:</span>
@@ -88,8 +84,9 @@
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    model :</span>
-<span class="sd">        Trained model to load to predict quality</span>
+<span class="sd">    model_file : str</span>
+<span class="sd">        Trained model to load to predict quality. Can be the name of included</span>
+<span class="sd">        pre-trained model or a path to an other model.</span>
 <span class="sd">    sampling_frequency : int</span>
 <span class="sd">        Sampling frequency of the input ECG signal. Used for several SQI</span>
 <span class="sd">        computing</span>
@@ -106,11 +103,11 @@
 <span class="sd">        From an ECG signal segment, directly returns the quality</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">model</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lib_path</span><span class="si">}</span><span class="s1">/trained_models/rfc_norm_2s.pkl&#39;</span><span class="p">,</span>
+                 <span class="n">model_file</span><span class="o">=</span><span class="s1">&#39;rfc_norm_2s.pkl&#39;</span><span class="p">,</span>
                  <span class="n">sampling_frequency</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span>
                  <span class="n">normalized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sampling_frequency</span> <span class="o">=</span> <span class="n">sampling_frequency</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">normalized</span> <span class="o">=</span> <span class="n">normalized</span>
 

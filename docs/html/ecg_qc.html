@@ -40,7 +40,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-ecg_qc.ecg_qc">ecg_qc main class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ecgqc-class">EcgQc class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#frequency-distribution-sqi">Frequency distribution sqi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#power-spectrum-sqi">Power spectrum sqi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#r-r-interval-sqi">R-R interval sqi</a></li>
@@ -75,14 +75,14 @@
              
   <section id="api-documentation">
 <h1>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline"></a></h1>
-<p>ecg_qc is a pyton library that classifies ECG signal to 0 = bad quality and 1 = good quality.</p>
+<p>ecg_qc is a python library that classifies ECG signal to 0 = bad quality and 1 = good quality.</p>
 <p>0 = bad quality corresponds to an ECG signal containing baseline shift, hight frequency noise which disturbs the QRS analysis.</p>
 <p>1 = good quality corresponds to a clean ECG signal where the QRS can be perfectly detected.</p>
-<section id="module-ecg_qc.ecg_qc">
-<span id="ecg-qc-main-class"></span><h2>ecg_qc main class<a class="headerlink" href="#module-ecg_qc.ecg_qc" title="Permalink to this headline"></a></h2>
+<section id="ecgqc-class">
+<h2>EcgQc class<a class="headerlink" href="#ecgqc-class" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="ecg_qc.ecg_qc.EcgQc">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">ecg_qc.ecg_qc.</span></span><span class="sig-name descname"><span class="pre">EcgQc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/exalis/github/ecg_qc/ecg_qc/trained_models/rfc_norm_2s.pkl'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_frequency</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecg_qc/ecg_qc.html#EcgQc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecg_qc.ecg_qc.EcgQc" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">ecg_qc.ecg_qc.</span></span><span class="sig-name descname"><span class="pre">EcgQc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfc_norm_2s.pkl'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_frequency</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecg_qc/ecg_qc.html#EcgQc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecg_qc.ecg_qc.EcgQc" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class determines the quality of an ECG segment, usually lasting
 several seconds. It computes SQIs (Signal Quality Indicator) and use them
@@ -94,9 +94,15 @@ in a pre-trained model to predict the quality:</p>
 </ul>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ecg_qc.ecg_qc.EcgQc.model">
-<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#ecg_qc.ecg_qc.EcgQc.model" title="Permalink to this definition"></a></dt>
-<dd><p>Trained model to load to predict quality</p>
+<dt class="sig sig-object py" id="ecg_qc.ecg_qc.EcgQc.model_file">
+<span class="sig-name descname"><span class="pre">model_file</span></span><a class="headerlink" href="#ecg_qc.ecg_qc.EcgQc.model_file" title="Permalink to this definition"></a></dt>
+<dd><p>Trained model to load to predict quality. Can be the name of included
+pre-trained model or a path to an other model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
