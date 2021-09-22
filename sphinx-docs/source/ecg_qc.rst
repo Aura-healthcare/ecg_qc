@@ -12,7 +12,6 @@ ecg_qc main class
 
 .. automodule:: ecg_qc.ecg_qc
     :members:
-    :undoc-members:
     :show-inheritance:
     
     
