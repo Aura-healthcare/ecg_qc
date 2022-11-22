@@ -19,9 +19,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     include_package_data=True,
     url="https://github.com/Aura-healthcare/ecg_qc",
-    # setuptools.find_packages("ecg_qc/*", exclude=["tests"]),
     packages=['ecg_qc'],
-    ackage_dir={'ecg_qc': 'ecg_qc'},
     python_requires='>=3.6',
     install_requires=[
         "biosppy>=0.6.1",
