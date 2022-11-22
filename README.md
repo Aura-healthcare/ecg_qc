@@ -77,7 +77,7 @@ ecg_qc = EcgQc()
 Default parameters:
 
 ```python
-ecg_qc = EcgQc(model='rfc_norm_2s.pkl',
+ecg_qc = EcgQc(model_file='rfc_norm_2s.pkl',
                sampling_frequency=256,
                normalized=True)
 ```
@@ -95,7 +95,7 @@ Computing SQIs before making prediction:
 ```python
 ecg_data = [1905.72, ... -150.75995323, -134.14559104] # ECG values with same sampling frequency as class declaration
 
-sqi_scores = ecg_qc.compute_sqi_score(ecg_data)
+sqi_scores = ecg_qc.compute_sqi_scores(ecg_data)
 signal_quality = ecg_qc.predict_quality(sqi_scores)
 ```
 
